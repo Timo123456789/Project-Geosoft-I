@@ -1,0 +1,28 @@
+{
+  "name": "project-geosoft-i",
+  "version": "1.0.0",
+  "description": "Corona Warn Lite",
+  "main": "tokens.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Timo123456789/Project-Geosoft-I.git"
+  },
+  "author": "Timo Lietmeyer, Judith Bresser",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Timo123456789/Project-Geosoft-I/issues"
+  },
+  "homepage": "https://github.com/Timo123456789/Project-Geosoft-I#readme",
+  "dependencies": {
+    "bootstrap": "^4.5.0",
+    "express": "^4.17.1",
+    "jquery": "^3.5.1",
+    "leaflet": "^1.6.0",
+    "leaflet-draw": "^1.0.4",
+    "leaflet.heat": "^0.2.0",
+    "mongodb": "^3.5.8"
+  }
+}
