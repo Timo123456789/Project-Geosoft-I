@@ -77,18 +77,18 @@ app.post("/User", (req, res) => {
 app.get("/User", (req, res) => {
     //Search for all items in mongodb
 
-    console.log("req body " + req.body.id);
+   
     console.log(req.query);
-    console.log(req.query.id);
-    console.log(req.query.coordinates);
+   
+  
     
-    if (req.query.id != undefined) {
-        let letid = req.query.id;
+    if (req.query.Username != undefined && req.query.Password != undefined) {
+        /*let letid = req.query.id;
     
         objid = {
             _id: new mongodb.ObjectID(letid)
-        };
-        app.locals.db.collection('User').find(objid._id).toArray((error, result) => {
+        };*/
+        app.locals.db.collection('User').find(req.query).toArray((error, result) => {
             if (error) {
                 console.dir(error);
             }
@@ -96,9 +96,7 @@ app.get("/User", (req, res) => {
         });
     }
     else {
-        req.body = {
-            _id: new mongodb.ObjectID(req.body.id)
-        };
+        
         app.locals.db.collection('User').find().toArray((error, result) => {
             if (error) {
                 console.dir(error);
