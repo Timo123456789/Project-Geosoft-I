@@ -19,7 +19,8 @@ async function connectMongoDB() {
         app.locals.db = await app.locals.dbConnection.db("MainDB");
         console.log("Using db: " + app.locals.db.databaseName);
        
-        //app.locals.db.collection("items").drop( (err,delOK) => {if(delOK) console.log("collections cleared")} );
+        app.locals.db.collection("User").drop( (err,delOK) => {if(delOK) console.log("collection User cleared")} );
+        app.locals.db.collection("Route").drop( (err,delOK) => {if(delOK) console.log("collection Route cleared")} );
 
     }
     catch (error) {
@@ -58,3 +59,54 @@ app.get('/', (req,res) => {
 app.listen(port,
     () => console.log(`HTML Site listening at http://localhost:${port}`)
 )
+
+
+
+app.post("/User", (req, res) => {
+    // insert item
+    console.log("insert item " + JSON.stringify(req.body));
+    app.locals.db.collection('User').insertOne(req.body, (error, result) => {
+        if (error) {
+            console.dir(error);
+        }
+        res.json(result);
+    });
+});
+
+//Suche muss noch abgeändert werden
+app.get("/User", (req, res) => {
+    //Search for all items in mongodb
+
+    console.log("req body " + req.body.id);
+    console.log(req.query);
+    console.log(req.query.id);
+    console.log(req.query.coordinates);
+    
+    if (req.query.id != undefined) {
+        let letid = req.query.id;
+    
+        objid = {
+            _id: new mongodb.ObjectID(letid)
+        };
+        app.locals.db.collection('User').find(objid._id).toArray((error, result) => {
+            if (error) {
+                console.dir(error);
+            }
+            res.json(result);
+        });
+    }
+    else {
+        req.body = {
+            _id: new mongodb.ObjectID(req.body.id)
+        };
+        app.locals.db.collection('User').find().toArray((error, result) => {
+            if (error) {
+                console.dir(error);
+            }
+            res.json(result);
+        });
+
+    }
+
+
+});
