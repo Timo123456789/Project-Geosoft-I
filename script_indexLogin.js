@@ -124,9 +124,11 @@ function login() {
         console.log(result);
         if (result[0] != undefined) {
           if (result[0].role == "traveller") {
-            console.log("traveller eingeloggt")
+            console.log("traveller eingeloggt");
+            window.location.href = 'http://localhost:3000/index_A';
           } else if (result[0].role == "doctor") {
             console.log("doctor eingeloggt");
+            window.location.href = 'http://localhost:3000/index_doc';
           }
         }
         else {
@@ -138,3 +140,4 @@ function login() {
   })
 
 }
+

@@ -55,6 +55,15 @@ app.get('/', (req,res) => {
     res.sendFile(__dirname + '/index_Login.html')
 })
 
+
+//Send index.html on request to "/"
+app.get('/index_A', (req,res) => {
+    res.sendFile(__dirname + '/index_A.html')
+})
+app.get('/index_Doc', (req,res) => {
+    res.sendFile(__dirname + '/index_Doc.html')
+})
+
 // listen on port 3000
 app.listen(port,
     () => console.log(`HTML Site listening at http://localhost:${port}`)
@@ -64,7 +73,7 @@ app.listen(port,
 
 app.post("/User", (req, res) => {
     // insert item
-    console.log("insert item " + JSON.stringify(req.body));
+    console.log("insert User " + JSON.stringify(req.body));
     app.locals.db.collection('User').insertOne(req.body, (error, result) => {
         if (error) {
             console.dir(error);
@@ -73,7 +82,7 @@ app.post("/User", (req, res) => {
     });
 });
 
-//Suche muss noch abgeändert werden
+//Sucht einen bestimmten User mit Passwort und gibt ihn zurück
 app.get("/User", (req, res) => {
     //Search for all items in mongodb
 
@@ -83,11 +92,7 @@ app.get("/User", (req, res) => {
   
     
     if (req.query.Username != undefined && req.query.Password != undefined) {
-        /*let letid = req.query.id;
-    
-        objid = {
-            _id: new mongodb.ObjectID(letid)
-        };*/
+        
         app.locals.db.collection('User').find(req.query).toArray((error, result) => {
             if (error) {
                 console.dir(error);
