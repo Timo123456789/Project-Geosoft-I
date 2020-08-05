@@ -15,12 +15,11 @@ async function connectMongoDB() {
     try {
         //connect to database server
         app.locals.dbConnection = await mongodb.MongoClient.connect("mongodb://localhost:27017", { useNewUrlParser: true });
-        //connect do databases "User" and "Route"
-        app.locals.db = await app.locals.dbConnection.db("User");
-        app.locals.db = await app.locals.dbConnection.db("Route");
+        //connect do database "MainDB"
+        app.locals.db = await app.locals.dbConnection.db("MainDB");
         console.log("Using db: " + app.locals.db.databaseName);
+       
         //app.locals.db.collection("items").drop( (err,delOK) => {if(delOK) console.log("collections cleared")} );
-
 
     }
     catch (error) {
@@ -31,6 +30,29 @@ async function connectMongoDB() {
 //Start connecting
 connectMongoDB()
 
+
+//Make all Files stored in Folder "__dirname" accessible over localhost:3000/src
+app.use('/src', express.static(__dirname + ''));
+
+//Make Leaflet accessible over localhost:3000/leaflet
+app.use('/leaflet', express.static(__dirname + '/node_modules/leaflet/dist'));
+
+//Make jquery accessible over localhost:3000/jquery
+app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist'));
+
+//Make bootstrap accessible voer localhost:3000/bootstrap
+app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist'));
+
+//Make leafleatheat accessible voer localhost:3000/leaflet-heap
+app.use('/leaflet-heat', express.static(__dirname + '/node_modules/leaflet.heat/dist'));
+
+//Make leafleatheat accessible voer localhost:3000/leaflet-heap
+app.use('/leaflet-draw', express.static(__dirname + '/node_modules/leaflet-draw/dist'));
+
+//Send index.html on request to "/"
+app.get('/', (req,res) => {
+    res.sendFile(__dirname + '/index_Login.html')
+})
 
 // listen on port 3000
 app.listen(port,
