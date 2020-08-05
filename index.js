@@ -52,7 +52,7 @@ app.use('/leaflet-draw', express.static(__dirname + '/node_modules/leaflet-draw/
 
 //Send index.html on request to "/"
 app.get('/', (req,res) => {
-    res.sendFile(__dirname + '/index_Login.html')
+    res.sendFile(__dirname + '/index_A.html')
 })
 
 
@@ -62,6 +62,15 @@ app.get('/index_A', (req,res) => {
 })
 app.get('/index_Doc', (req,res) => {
     res.sendFile(__dirname + '/index_Doc.html')
+})
+app.get('/index_Login', (req,res) => {
+    res.sendFile(__dirname + '/index_Login.html')
+})
+app.get('/index_A', (req,res) => {
+    res.sendFile(__dirname + '/index_A.html')
+})
+app.get('/index_B', (req,res) => {
+    res.sendFile(__dirname + '/index_B.html')
 })
 
 // listen on port 3000
