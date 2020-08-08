@@ -20,7 +20,8 @@ async function connectMongoDB() {
         console.log("Using db: " + app.locals.db.databaseName);
        
         app.locals.db.collection("User").drop( (err,delOK) => {if(delOK) console.log("collection User cleared")} );
-        app.locals.db.collection("Route").drop( (err,delOK) => {if(delOK) console.log("collection Route cleared")} );
+        app.locals.db.collection("all_busstops_and_departures").drop( (err,delOK) => {if(delOK) console.log("collection all_busstops_and_departures cleared")} );
+        app.locals.db.collection("departures").drop( (err,delOK) => {if(delOK) console.log("collection departures cleared")} );
 
     }
     catch (error) {
@@ -81,9 +82,33 @@ app.listen(port,
 
 
 app.post("/User", (req, res) => {
-    // insert item
-    console.log("insert User " + JSON.stringify(req.body));
+    // insert User
+    //console.log("insert User " + JSON.stringify(req.body));
     app.locals.db.collection('User').insertOne(req.body, (error, result) => {
+        if (error) {
+            console.dir(error);
+        }
+        res.json(result);
+    });
+});
+
+
+app.post("/all_busstops_and_departures", (req, res) => {
+    // insert Departure
+    //console.log("all_busstops_and_departures " + JSON.stringify(req.body));
+    app.locals.db.collection('all_busstops_and_departures').insertOne(req.body, (error, result) => {
+        if (error) {
+            console.dir(error);
+        }
+        res.json(result);
+    });
+});
+
+
+app.post("/departures", (req, res) => {
+    // insert Departure
+    console.log("departures " + JSON.stringify(req.body));
+    app.locals.db.collection('departures').insertOne(req.body, (error, result) => {
         if (error) {
             console.dir(error);
         }
@@ -122,3 +147,40 @@ app.get("/User", (req, res) => {
 
 
 });
+
+
+//Sucht einen bestimmten Departure
+app.get("/all_busstops_and_departures", (req, res) => {
+    //Search for all items in mongodb
+
+   
+    console.log(req.query.id);
+   
+  
+    
+    if (req.query != undefined) {
+        console.log("req ist definiert")
+        app.locals.db.collection('all_busstops_and_departures').find(req.query).toArray((error, result) => {
+            if (error) {
+                console.dir(error);
+            }
+           // console.log("res"+JSON.stringify(res))
+            console.log("result"+JSON.stringify(result))
+            res.json(result);
+        });
+    }
+    else {
+        
+        app.locals.db.collection('all_busstops_and_departures').find().toArray((error, result) => {
+            if (error) {
+                console.dir(error);
+            }
+            res.json(result);
+        });
+        console.log("else");
+
+    }
+
+
+});
+
