@@ -18,6 +18,7 @@ getLocation()
 *
 *
 */
+var DepID=0;
 
 async function getLocation() {
 
@@ -234,7 +235,7 @@ function create_Collection_of_all_stops_and_departures(busstops) {
 
 function create_Collection_Departures(departures){
 
-var DepID=0
+//var DepID=0
   for (var i = 0; i < departures.length; i++) {
    // console.log(departures.length);
     console.log(i);
@@ -291,7 +292,37 @@ function create_list_of_ratio_buttons(busstops) {
   }
 
 }
+function create_list_of_ratio_buttons_departures(departures) {
+  document.getElementById("radiobuttons_departures").innerHTML = "";
+//var DepID=0
 
+
+  var list = document.getElementById("radiobuttons_departures");
+  for (var i = 0; i < departures.length; i++) {
+    var x = document.createElement("INPUT");
+    var y = document.createElement("LABEL");
+    y.innerHTML = departures[i].transport.headsign + "(ID: " + "Dep"+DepID + ")";
+
+
+
+    x.setAttribute(
+      "type",
+      "radio",
+    );
+    x.setAttribute(
+      "name",
+      "value_departures"
+    );
+    x.setAttribute(
+      "departures_id",
+     DepID
+    );
+    list.appendChild(x);
+    list.appendChild(y);
+
+  }
+
+}
 
 
 /**
@@ -328,6 +359,59 @@ async function check_stop_radios() {
 }
 
 
+async function check_departure_radios() {
+  console.log("tabellen leergeputzt? DEPRADIO")
+  // clean_tables();
+
+  const rbs = document.querySelectorAll('input[name="value_departures"]');
+  console.log(rbs);
+  let selectedValue;
+  for (const rb of rbs) {
+    if (rb.checked) {
+      console.log("depcheck");
+      console.log(rb);
+      selectedValue = rb.attributes.departures_id.nodeValue;
+      console.log(selectedValue)
+      
+    get_one_departure_with_ID(selectedValue)
+      console.log("departures");
+    //  console.log(selected_stop);
+     // console.log(selected_stop[0].departures);
+      
+     
+      break;
+    }
+  }
+
+
+}
+
+
+function get_one_departure_with_ID(id) {
+
+  console.log("id")
+  console.log(id)
+  var idobject={
+    id:idobject
+  }
+  return new Promise(function (res, rej) {
+    $.ajax({
+      url: "/departures",
+      method: "GET",
+      data: idobject,
+      success: function (result) {
+        res(result);
+        console.log(res)
+        console.log(result)
+
+
+      },
+      error: function (err) { console.log(err) }
+    });
+  })
+
+}
+
 /**
 *
 *@desc Creates a table on the HTML Site
@@ -338,7 +422,7 @@ function create_table_departures(stop) {
 
   //Variablendeklaration
   var table = document.getElementById("Table2");
-  var DepID = 0;
+  //var DepID = 0;
 
 
   //  console.log("table2");
@@ -368,7 +452,7 @@ function create_table_departures(stop) {
 
     var internID = row.insertCell();
     internID.innerHTML = "Dep" + DepID;
-    DepID++;
+   
     internID.setAttribute("class", "t2");//insert cell at the row variable with the arrival time
 
 
@@ -453,36 +537,7 @@ function get_one_stop_with_ID(idobject) {
 
 }
 
-function create_list_of_ratio_buttons_departures(departures) {
-  document.getElementById("radiobuttons_departures").innerHTML = "";
-var DepID=0
 
-
-  var list = document.getElementById("radiobuttons_departures");
-  for (var i = 0; i < departures.length; i++) {
-    var x = document.createElement("INPUT");
-    var y = document.createElement("LABEL");
-    y.innerHTML = departures[i].transport.headsign + "(ID: " + "Dep"+DepID + ")\n";
-DepID++
-
-
-    x.setAttribute(
-      "type",
-      "radio",
-    );
-    x.setAttribute(
-      "name",
-      "value"
-    );
-    x.setAttribute(
-      "value",
-     departures.id
-    );
-    list.appendChild(x);
-    list.appendChild(y);
-  }
-
-}
 
 
 /**

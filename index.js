@@ -149,7 +149,7 @@ app.get("/User", (req, res) => {
 });
 
 
-//Sucht einen bestimmten Departure
+//Sucht eine bestimmte Haltestelle
 app.get("/all_busstops_and_departures", (req, res) => {
     //Search for all items in mongodb
 
@@ -165,7 +165,7 @@ app.get("/all_busstops_and_departures", (req, res) => {
                 console.dir(error);
             }
            // console.log("res"+JSON.stringify(res))
-            console.log("result"+JSON.stringify(result))
+           // console.log("result"+JSON.stringify(result))
             res.json(result);
         });
     }
@@ -184,3 +184,37 @@ app.get("/all_busstops_and_departures", (req, res) => {
 
 });
 
+
+app.get("/departures", (req, res) => {
+    //Search for all items in mongodb
+
+   
+    console.log(req.query.id);
+   
+  
+    
+    if (req.query != undefined) {
+        console.log("req ist definiert")
+        app.locals.db.collection('departures').find(req.query).toArray((error, result) => {
+            if (error) {
+                console.dir(error);
+            }
+           // console.log("res"+JSON.stringify(res))
+            console.log("result"+JSON.stringify(result))
+            res.json(result);
+        });
+    }
+    else {
+        
+        app.locals.db.collection('departures').find().toArray((error, result) => {
+            if (error) {
+                console.dir(error);
+            }
+            res.json(result);
+        });
+        console.log("else");
+
+    }
+
+
+});
