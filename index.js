@@ -22,6 +22,7 @@ async function connectMongoDB() {
         app.locals.db.collection("User").drop( (err,delOK) => {if(delOK) console.log("collection User cleared")} );
         app.locals.db.collection("all_busstops_and_departures").drop( (err,delOK) => {if(delOK) console.log("collection all_busstops_and_departures cleared")} );
         app.locals.db.collection("departures").drop( (err,delOK) => {if(delOK) console.log("collection departures cleared")} );
+        app.locals.db.collection("logged_User").drop( (err,delOK) => {if(delOK) console.log("collection logged_User cleared")} );
 
     }
     catch (error) {
@@ -53,7 +54,7 @@ app.use('/leaflet-draw', express.static(__dirname + '/node_modules/leaflet-draw/
 
 //Send index.html on request to "/"
 app.get('/', (req,res) => {
-    res.sendFile(__dirname + '/index_A.html')
+    res.sendFile(__dirname + '/index_Login.html')
 })
 
 
@@ -109,6 +110,18 @@ app.post("/departures", (req, res) => {
     // insert Departure
     console.log("departures " + JSON.stringify(req.body));
     app.locals.db.collection('departures').insertOne(req.body, (error, result) => {
+        if (error) {
+            console.dir(error);
+        }
+        res.json(result);
+    });
+});
+
+
+app.post("/logged_User", (req, res) => {
+    // insert User
+    console.log("logged User " + JSON.stringify(req.body));
+    app.locals.db.collection('logged_User').insertOne(req.body, (error, result) => {
         if (error) {
             console.dir(error);
         }
@@ -217,4 +230,45 @@ app.get("/departures", (req, res) => {
     }
 
 
+});
+
+//gibt eingeloggten User zurück
+app.get("/logged_User", (req, res) => {
+    //Search for all items in mongodb
+
+   
+    console.log("req.query, eingelogter User");
+    console.log(req.query);
+   
+  
+    
+        
+  
+        
+        app.locals.db.collection('logged_User').find().toArray((error, result) => {
+            if (error) {
+                console.dir(error);
+            }
+            res.json(result);
+        });
+        console.log("else");
+
+    
+       
+
+
+});
+
+//löscht eingeloggten User
+app.delete("/logged_User", (req, res) => {
+    // delete item
+   
+    console.log("delete item " + JSON.stringify(req.body));
+   
+    app.locals.db.collection('logged_User').deleteOne(req.body, (error, result) => {
+        if (error) {
+            console.dir(error);
+        }
+        res.json(result);
+    });
 });
