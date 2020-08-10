@@ -8,7 +8,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 
-check_logged_User()
+//check_logged_User()
 getLocation()
 //create_Table_Busstops(test);
 
@@ -20,7 +20,7 @@ getLocation()
 *
 *
 */
-var DepID=0;
+var DepID = 0;
 
 async function getLocation() {
 
@@ -205,6 +205,8 @@ function create_Table_Busstops(busstops) {
 
 }
 
+
+
 function create_Collection_of_all_stops_and_departures(busstops) {
   for (var i = 0; i < busstops.boards.length; i++) {
     console.log(busstops.boards.length);
@@ -235,34 +237,7 @@ function create_Collection_of_all_stops_and_departures(busstops) {
 
 }
 
-function create_Collection_Departures(departures){
 
-//var DepID=0
-  for (var i = 0; i < departures.length; i++) {
-   // console.log(departures.length);
-    console.log(i);
-    result = {
-      name: departures[i].transport.headsign,
-      type: departures[i].transport.name,
-      id: DepID,
-     
-
-    };
-    DepID++;
-
-    $.ajax({
-      url: "/departures",
-      method: "POST",
-      data: result,
-      success: function (result) {
-        result;
-      },
-      error: function (err) { console.log(err) }
-    });
-
-  }
-
-}
 
 function create_list_of_ratio_buttons(busstops) {
   document.getElementById("radiobuttons_stops").innerHTML = "";
@@ -294,16 +269,16 @@ function create_list_of_ratio_buttons(busstops) {
   }
 
 }
-function create_list_of_ratio_buttons_departures(departures) {
+function create_list_of_ratio_buttons_departures(departures, stop_id) {
   document.getElementById("radiobuttons_departures").innerHTML = "";
-//var DepID=0
+  //var DepID=0
 
 
   var list = document.getElementById("radiobuttons_departures");
   for (var i = 0; i < departures.length; i++) {
     var x = document.createElement("INPUT");
     var y = document.createElement("LABEL");
-    y.innerHTML = departures[i].transport.headsign + "(ID: " + "Dep"+DepID + ")";
+    y.innerHTML = departures[i].transport.headsign + "(ID: " + "Dep" + i + ")";
 
 
 
@@ -317,7 +292,11 @@ function create_list_of_ratio_buttons_departures(departures) {
     );
     x.setAttribute(
       "departures_id",
-     DepID
+   i
+    );
+    x.setAttribute(
+      "stop_id",
+      stop_id
     );
     list.appendChild(x);
     list.appendChild(y);
@@ -335,7 +314,7 @@ function create_list_of_ratio_buttons_departures(departures) {
 
 
 async function check_stop_radios() {
-  console.log("tabellen leergeputzt?")
+  // console.log("tabellen leergeputzt?")
   // clean_tables();
 
   const rbs = document.querySelectorAll('input[name="value"]');
@@ -343,16 +322,16 @@ async function check_stop_radios() {
   for (const rb of rbs) {
     if (rb.checked) {
       selectedValue = rb.value;
-      console.log(selectedValue)
+      //  console.log(selectedValue)
       var idobject = {
         id: selectedValue,
       }
       var selected_stop = await get_one_stop_with_ID(idobject);
-      console.log("departures");
-      console.log(selected_stop);
-      console.log(selected_stop[0].departures);
+      //console.log("departures");
+      // console.log(selected_stop);
+      //console.log(selected_stop[0].departures);
       clean_tables();
-      create_table_departures(selected_stop[0].departures)
+      create_table_departures(selected_stop, selectedValue)
       break;
     }
   }
@@ -362,25 +341,27 @@ async function check_stop_radios() {
 
 
 async function check_departure_radios() {
-  console.log("tabellen leergeputzt? DEPRADIO")
+  // console.log("tabellen leergeputzt? DEPRADIO")
   // clean_tables();
 
   const rbs = document.querySelectorAll('input[name="value_departures"]');
   console.log(rbs);
-  let selectedValue;
+  let selected_Departure_ID;
+  let selected_stop_ID;
   for (const rb of rbs) {
     if (rb.checked) {
-      console.log("depcheck");
-      console.log(rb);
-      selectedValue = rb.attributes.departures_id.nodeValue;
-      console.log(selectedValue)
-      
-    get_one_departure_with_ID(selectedValue)
-      console.log("departures");
-    //  console.log(selected_stop);
-     // console.log(selected_stop[0].departures);
-      
-     
+       console.log("depcheck");
+        console.log(rb);
+      selected_Departure_ID = rb.attributes.departures_id.nodeValue;
+      selected_stop_ID=rb.attributes.stop_id.nodeValue
+      // console.log(selectedValue)
+add_selected_stop_as_taken(selected_Departure_ID,selected_stop_ID)
+
+      // console.log("departures");
+      //  console.log(selected_stop);
+      // console.log(selected_stop[0].departures);
+
+
       break;
     }
   }
@@ -389,30 +370,29 @@ async function check_departure_radios() {
 }
 
 
-function get_one_departure_with_ID(id) {
+async function add_selected_stop_as_taken(dep_id, stop_id){
+  var user = await get_logged_User()
+  console.log(user);
+    var object = {
+departure_id: dep_id,
+stop_id:stop_id,
+user: user[0].userID
 
-  console.log("id")
-  console.log(id)
-  var idobject={
-    id:idobject
-  }
-  return new Promise(function (res, rej) {
+    }
+    console.log(object);
     $.ajax({
-      url: "/departures",
-      method: "GET",
-      data: idobject,
+      url: "/selected_departures",
+      method: "POST",
+      data: object,
       success: function (result) {
-        res(result);
-        console.log(res)
-        console.log(result)
-
-
+        result;
       },
       error: function (err) { console.log(err) }
     });
-  })
 
+  
 }
+
 
 /**
 *
@@ -420,7 +400,7 @@ function get_one_departure_with_ID(id) {
 *@param array_of_objects, array with objects, which includes the lines and their departure and arrival times
 */
 
-function create_table_departures(stop) {
+async function create_table_departures(stop, id) {
 
   //Variablendeklaration
   var table = document.getElementById("Table2");
@@ -428,48 +408,71 @@ function create_table_departures(stop) {
 
 
   //  console.log("table2");
+  console.log("id:" + id)
+  console.log("stop:" + stop)
+  //console.log("id:"+stop.id)
+  //break;
 
 
-  for (var i = 0; i < stop.length; i++) {
+  
+  console.log(stop);
+    for (var i = 0; i < stop[0].departures.length; i++) {
 
-    //    console.log("table2for");
-
-    var row = table.insertRow();  //insert a row
-    row.setAttribute("class", "rt2");
-
-
-
-    var richtungstext = row.insertCell();
-    richtungstext.innerHTML = stop[i].transport.headsign;
-    richtungstext.setAttribute("class", "t2"); //insert cell at the row variable with the bearing of the line
-
-    var linienid = row.insertCell();
-    linienid.innerHTML = stop[i].transport.name;
-    linienid.setAttribute("class", "t2"); //insert cell at the row variable with with the lines number
-
-    var ankunftszeit = row.insertCell();
-    ankunftszeit.innerHTML = convert_time(stop[i].time);
-    ankunftszeit.setAttribute("class", "t2");//insert cell at the row variable with the arrival time
-
-
-    var internID = row.insertCell();
-    internID.innerHTML = "Dep" + DepID;
-   
-    internID.setAttribute("class", "t2");//insert cell at the row variable with the arrival time
-
-
-
-
+      //    console.log("table2for");
+      update_dep_table(stop[0].departures[i],i,id,table)
+     
+    }
+    
+  create_list_of_ratio_buttons_departures(stop[0].departures, id)
   }
-
-  create_Collection_Departures(stop)
-create_list_of_ratio_buttons_departures(stop)
+  
 
 
 
+ 
 
 
+
+
+
+
+
+
+
+
+function update_dep_table(stop,i,id,table){
+  
+   var row = table.insertRow();  //insert a row
+  row.setAttribute("class", "rt2");
+
+
+
+  var richtungstext = row.insertCell();
+  richtungstext.innerHTML = stop.transport.headsign;
+  richtungstext.setAttribute("class", "t2"); //insert cell at the row variable with the bearing of the line
+
+  var linienid = row.insertCell();
+  linienid.innerHTML = stop.transport.name;
+  linienid.setAttribute("class", "t2"); //insert cell at the row variable with with the lines number
+
+  var ankunftszeit = row.insertCell();
+  ankunftszeit.innerHTML = convert_time(stop.time);
+  ankunftszeit.setAttribute("class", "t2");//insert cell at the row variable with the arrival time
+
+
+  var internID = row.insertCell();
+  internID.innerHTML = i;
+
+  internID.setAttribute("class", "t2");//insert cell at the row variable with the arrival time
+
+  var stopID = row.insertCell();
+  stopID.innerHTML = id;
+
+  stopID.setAttribute("class", "t2");//insert cell at the row variable with the arrival time
 }
+
+
+
 
 
 
@@ -504,8 +507,8 @@ minutes = minutes + parseInt(time_short.charAt((time_short.indexOf(":")+2)))
   console.log(minutes)*/
   //time_short.replace(time_short.indexOf(":")-1,hours);
   var test = time_short.charAt(1);
-  console.log("test:  " + test);
-  console.log(time_short)
+  //console.log("test:  " + test);
+  //console.log(time_short)
   time_short = time_short.replace(parseInt(time_short.charAt(1)) + 2, 1)
   return time_short;
 
@@ -567,10 +570,10 @@ function clean_tables() {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-async function check_logged_User(){
-  var  logged = await get_logged_User();
+async function check_logged_User() {
+  var logged = await get_logged_User();
   console.log(logged);
-  if(logged[0]!=undefined){
+  if (logged[0] != undefined) {
     window.alert("Login Sucess");
 
 
@@ -578,21 +581,39 @@ async function check_logged_User(){
   }
   else {
 
- window.alert("Login failed");
- //window.location.href = 'http://localhost:3000/index_Login';
+    window.alert("Login failed");
+    window.location.href = 'http://localhost:3000/index_Login';
   }
 
 }
-async function get_logged_User(){
-  
-  
+async function get_logged_User() {
+
+
   return new Promise(function (res, rej) {
     $.ajax({
       url: "/logged_User",
       method: "GET",
- 
+
       success: function (result) {
-        
+
+        res(result);
+
+      },
+      error: function (err) { console.log(err) }
+    });
+  })
+
+}
+
+
+function delete_logged_User() {
+
+  return new Promise(function (res, rej) {
+    $.ajax({
+      url: "/logged_User",
+      method: "DELETE",
+
+      success: function (result) {
         res(result);
         window.location.href = 'http://localhost:3000/index_Login';
 
@@ -600,25 +621,7 @@ async function get_logged_User(){
       error: function (err) { console.log(err) }
     });
   })
-
 }
-
-
-function delete_logged_User(){
-
-  return new Promise(function (res, rej) {
-    $.ajax({
-      url: "/logged_User",
-      method: "DELETE",
-      
-      success: function (result) {
-        res(result);
-        
-      },
-      error: function (err) { console.log(err) }
-    });
-  })
-} 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -661,3 +664,71 @@ function delete_logged_User(){
     }
 
   }*/
+
+
+  
+/*function create_Collection_Departures(departures, id) {
+  console.log(departures)
+  console.log("id")
+  console.log(id)
+  var x = 0
+  for (var i = 0; i < departures.length; i++) {
+    // console.log(departures.length);
+    console.log(i);
+    result = {
+      name: departures[i].transport.headsign,
+      type: departures[i].transport.name,
+      time: departures[i].time,
+      stop_id: id,
+      departure_id: i
+
+
+
+    };
+    x++;
+
+    $.ajax({
+      url: "/departures",
+      method: "POST",
+      data: result,
+      success: function (result) {
+        result;
+      },
+      error: function (err) { console.log(err) }
+    });
+
+  }
+
+}
+
+
+function get_one_departure_with_ID(id) {
+
+  console.log("id")
+  console.log(id)
+  var idobject = {
+    id: id
+  }
+  console.log(idobject);
+  return new Promise(function (res, rej) {
+    $.ajax({
+      url: "/departures",
+      method: "GET",
+      data: idobject,
+      success: function (result) {
+        res(result);
+        // console.log(res)
+        // console.log(result)
+
+
+      },
+      error: function (err) { console.log(err) }
+    });
+  })
+
+}
+
+
+
+
+*/
