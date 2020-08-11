@@ -125,10 +125,12 @@ function login() {
         if (result[0] != undefined) {
           if (result[0].role == "traveller") {
             console.log("traveller eingeloggt");
-            window.location.href = 'http://localhost:3000/index_A';
+            save_User_trav(result);
+           
           } else if (result[0].role == "doctor") {
             console.log("doctor eingeloggt");
-            window.location.href = 'http://localhost:3000/index_doc';
+            save_User_Doc(result);
+        
           }
         }
         else {
@@ -140,4 +142,79 @@ function login() {
   })
 
 }
+
+function save_User_trav(loggedUser){
+
+  
+console.log("loggedUser");
+console.log(loggedUser);
+var result = loggedUser[0];
+console.log(result);
+
+    
+
+    return new Promise(function (res, rej) {
+      $.ajax({
+        url: "/logged_User",
+        method: "POST",
+        data: result,
+        success: function (result) {
+          res(result);
+          document.getElementById("Username").value = "";
+          document.getElementById("Password").value = "";
+          window.location.href = 'http://localhost:3000/index_A';
+        },
+        error: function (err) { console.log(err) }
+      });
+    })
+  } 
+
+  function save_User_Doc(loggedUser){
+
+  
+    console.log("loggedUser");
+    console.log(loggedUser);
+    var result = loggedUser[0];
+    console.log(result);
+    
+        
+    
+        return new Promise(function (res, rej) {
+          $.ajax({
+            url: "/logged_User",
+            method: "POST",
+            data: result,
+            success: function (result) {
+              res(result);
+              document.getElementById("Username").value = "";
+              document.getElementById("Password").value = "";
+              window.location.href = 'http://localhost:3000/index_doc';
+            },
+            error: function (err) { console.log(err) }
+          });
+        })
+      } 
+
+
+ function delete_logged_User(){
+
+  return new Promise(function (res, rej) {
+    $.ajax({
+      url: "/logged_User",
+      method: "DELETE",
+      
+      success: function (result) {
+        res(result);
+        
+      },
+      error: function (err) { console.log(err) }
+    });
+  })
+} 
+
+
+ 
+
+
+
 
