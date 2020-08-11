@@ -8,11 +8,11 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 
-//check_logged_User()
+check_logged_User()
 getLocation()
-//create_Table_Busstops(test);
 
-//GETLOCATION
+
+
 
 /**
 *@desc return the user location via Callback function "showPosition"
@@ -24,7 +24,7 @@ var DepID = 0;
 
 async function getLocation() {
 
-  console.log("getlocation");
+
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
 
@@ -129,8 +129,8 @@ function screen_User_Position(actpos) {
 
 
 function getbusstops(actpos) {
-  console.log("Button funktioniert" + actpos);
-  console.log("URL:      " + "https://transit.hereapi.com/v8/departures?in=" + actpos + ";r=500");
+ 
+ // console.log("URL:      " + "https://transit.hereapi.com/v8/departures?in=" + actpos + ";r=500");
   return new Promise(function (res, rej) {
     $.ajax({
       url: "https://transit.hereapi.com/v8/departures?in=" + actpos + ";r=500",
@@ -140,7 +140,7 @@ function getbusstops(actpos) {
       },
       success: function (result) {
 
-        console.log(JSON.stringify(result));
+       // console.log(JSON.stringify(result));
         create_Table_Busstops(result)
       },
       error: function (err) { console.log(err) }
@@ -152,8 +152,7 @@ function getbusstops(actpos) {
 
 function create_Table_Busstops(busstops) {
 
-  console.log("create");
-  console.log(JSON.stringify(busstops));
+ 
   //Variablendeklaration
   var table = document.getElementById("Table");
 
@@ -209,8 +208,7 @@ function create_Table_Busstops(busstops) {
 
 function create_Collection_of_all_stops_and_departures(busstops) {
   for (var i = 0; i < busstops.boards.length; i++) {
-    console.log(busstops.boards.length);
-    console.log(i);
+    
     result = {
       name: busstops.boards[i].place.name,
       type: busstops.boards[i].place.type,
@@ -271,7 +269,7 @@ function create_list_of_ratio_buttons(busstops) {
 }
 function create_list_of_ratio_buttons_departures(departures, stop_id) {
   document.getElementById("radiobuttons_departures").innerHTML = "";
-  //var DepID=0
+ 
 
 
   var list = document.getElementById("radiobuttons_departures");
@@ -322,14 +320,12 @@ async function check_stop_radios() {
   for (const rb of rbs) {
     if (rb.checked) {
       selectedValue = rb.value;
-      //  console.log(selectedValue)
+    
       var idobject = {
         id: selectedValue,
       }
       var selected_stop = await get_one_stop_with_ID(idobject);
-      //console.log("departures");
-      // console.log(selected_stop);
-      //console.log(selected_stop[0].departures);
+     
       clean_tables();
       create_table_departures(selected_stop, selectedValue)
       break;
@@ -341,8 +337,7 @@ async function check_stop_radios() {
 
 
 async function check_departure_radios() {
-  // console.log("tabellen leergeputzt? DEPRADIO")
-  // clean_tables();
+ 
 
   const rbs = document.querySelectorAll('input[name="value_departures"]');
   console.log(rbs);
@@ -350,16 +345,13 @@ async function check_departure_radios() {
   let selected_stop_ID;
   for (const rb of rbs) {
     if (rb.checked) {
-       console.log("depcheck");
-        console.log(rb);
+      
       selected_Departure_ID = rb.attributes.departures_id.nodeValue;
       selected_stop_ID=rb.attributes.stop_id.nodeValue
-      // console.log(selectedValue)
+    
 add_selected_stop_as_taken(selected_Departure_ID,selected_stop_ID)
 
-      // console.log("departures");
-      //  console.log(selected_stop);
-      // console.log(selected_stop[0].departures);
+      
 
 
       break;
@@ -372,14 +364,14 @@ add_selected_stop_as_taken(selected_Departure_ID,selected_stop_ID)
 
 async function add_selected_stop_as_taken(dep_id, stop_id){
   var user = await get_logged_User()
-  console.log(user);
+  
     var object = {
 departure_id: dep_id,
 stop_id:stop_id,
 user: user[0].userID
 
     }
-    console.log(object);
+    
     $.ajax({
       url: "/selected_departures",
       method: "POST",
@@ -404,21 +396,20 @@ async function create_table_departures(stop, id) {
 
   //Variablendeklaration
   var table = document.getElementById("Table2");
-  //var DepID = 0;
+ 
 
 
-  //  console.log("table2");
+ 
   console.log("id:" + id)
   console.log("stop:" + stop)
-  //console.log("id:"+stop.id)
-  //break;
+ 
 
 
   
   console.log(stop);
     for (var i = 0; i < stop[0].departures.length; i++) {
 
-      //    console.log("table2for");
+      
       update_dep_table(stop[0].departures[i],i,id,table)
      
     }
@@ -522,8 +513,7 @@ minutes = minutes + parseInt(time_short.charAt((time_short.indexOf(":")+2)))
 
 function get_one_stop_with_ID(idobject) {
 
-  console.log("idobject")
-  console.log(idobject)
+ 
   return new Promise(function (res, rej) {
     $.ajax({
       url: "/all_busstops_and_departures",
@@ -531,8 +521,7 @@ function get_one_stop_with_ID(idobject) {
       data: idobject,
       success: function (result) {
         res(result);
-        console.log(res)
-        console.log(result)
+       
 
 
       },

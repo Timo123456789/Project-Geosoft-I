@@ -19,9 +19,9 @@ async function connectMongoDB() {
         app.locals.db = await app.locals.dbConnection.db("MainDB");
         console.log("Using db: " + app.locals.db.databaseName);
        
-        app.locals.db.collection("User").drop( (err,delOK) => {if(delOK) console.log("collection User cleared")} );
+       app.locals.db.collection("User").drop( (err,delOK) => {if(delOK) console.log("collection User cleared")} );
         app.locals.db.collection("all_busstops_and_departures").drop( (err,delOK) => {if(delOK) console.log("collection all_busstops_and_departures cleared")} );
-        app.locals.db.collection("selected_departures").drop( (err,delOK) => {if(delOK) console.log("collection departures cleared")} );
+     app.locals.db.collection("selected_departures").drop( (err,delOK) => {if(delOK) console.log("collection departures cleared")} );
         app.locals.db.collection("logged_User").drop( (err,delOK) => {if(delOK) console.log("collection logged_User cleared")} );
 
     }
@@ -84,7 +84,7 @@ app.listen(port,
 
 app.post("/User", (req, res) => {
     // insert User
-    //console.log("insert User " + JSON.stringify(req.body));
+    console.log("insert User " + JSON.stringify(req.body));
     app.locals.db.collection('User').insertOne(req.body, (error, result) => {
         if (error) {
             console.dir(error);
@@ -196,8 +196,8 @@ app.get("/logged_User", (req, res) => {
     //Search for all items in mongodb
 
    
-    console.log("req.query, eingelogter User");
-    console.log(req.query);
+    //console.log("req.query, eingelogter User");
+    //console.log(req.query);
    
   
     
@@ -210,7 +210,7 @@ app.get("/logged_User", (req, res) => {
             }
             res.json(result);
         });
-        console.log("else");
+       // console.log("else");
 
     
        
@@ -241,7 +241,40 @@ app.post("/selected_departures", (req, res) => {
         res.json(result);
     });
 });
+app.get("/selected_departures", (req, res) => {
+    //Search for all items in mongodb
 
+   
+    console.log(req.query.id);
+   
+  
+    
+    if (req.query != undefined) {
+        console.log("Departures req ist definiert")
+        app.locals.db.collection('selected_departures').find({id:req.query.id}).toArray((error, result) => {
+            if (error) {
+                console.dir(error);
+            }
+           // console.log("res"+JSON.stringify(res))
+            console.log("result"+JSON.stringify(result))
+            res.json(result);
+        });
+    }
+    else {
+        console.log("else Teil departure")
+      
+        app.locals.db.collection('selected_departures').find().toArray((error, result) => {
+            if (error) {
+                console.dir(error);
+            }
+            res.json(result);
+        });
+        //console.log("else");
+
+    }
+
+
+});
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
