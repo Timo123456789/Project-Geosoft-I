@@ -59,8 +59,8 @@ font-size: 3.5rem;
       <li><a href=" ">Logout</a></li> <!-- <a class="nav-link" onclick="delete_logged_User()">Logout</a> -->
     </li>
     <li><a href="Testfile zum rumprobieren.html">Testfile zum rumprobieren.html</a></li>
-    </ul>
-  </div>
+  </ul>
+</div>
 </div>
 </nav>
 <!-- /navbar -->
@@ -94,90 +94,105 @@ aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle n
 </div>
 </nav> -->
 
-
-
 <!-- main container -->
 <div class="container-fluid">
-<div class="row">
-<div class="col-sm-6" id="mapSection" style="height:400px">
-  <p class="lead">
-  <h1><a href="index.html"></a>Karte</h1> </p>
-</div>
+  <div class="row">
+    <div class="col-sm-6" id="mapSection" style="height:400px">
+      <p class="lead">
+        <h1><a href="index.html"></a>Karte</h1> </p>
+      </div>
 
-<br>
+      <br>
 
-<div class="col-sm-6" id="colum2">
+      <div class="col-sm-6" id="colum2">
 
-<p id="demo"></p>
+        <p id="demo"></p>
 
-<div class="table-responsive">
-<table class="table table-striped table-sm" id = "Table">
-<thead>
-<tr>
-<th>Name</th>
-<th>type</th>
-<th>ID</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-</div>
+        <div class="table-responsive">
+          <table class="table table-striped table-sm" id = "Table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>type</th>
+                <th>ID</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
 
-<br><br>
+        <br><br>
 
-<form id="radiobuttons_stops"> </form>
-<button type="button" onclick="check_stop_radios()" class="btn btn-default">screen Departures from selected Busstop</button>
+        <form id="radiobuttons_stops"> </form>
+        <button type="button" onclick="check_stop_radios()" class="btn btn-default">screen Departures from selected Busstop</button>
 
-<br><br>
+        <br><br>
 
-<div class="table-responsive">
-<table class="table table-striped table-sm" id = "Table2">
-<thead>
-<tr>
-<th>direction</th>
-<th>line number</th>
-<th>arrival time</th>
-<th>Departure ID</th>
-<th>Selected Stop ID</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-</div>
+        <div class="table-responsive">
+          <table class="table table-striped table-sm" id = "Table2">
+            <thead>
+              <tr>
+                <th>direction</th>
+                <th>line number</th>
+                <th>arrival time</th>
+                <th>Departure ID</th>
+                <th>Selected Stop ID</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
 
-<br>
+        <br>
 
-<form id="radiobuttons_departures"> </form>
-<button type="button" onclick="check_departure_radios()" class="btn btn-default">add selected Departure as taken</button>
+        <form id="radiobuttons_departures"> </form>
+        <button type="button" onclick="check_departure_radios()" class="btn btn-default">add selected Departure as taken</button>
 
-</div>
-</div>
+      </div>
+    </div>
 
-<!-- /container -->
+    <!-- /container -->
 
-<br><br>
+    <br><br>
 
-<!-- footer -->
-<footer class="container-fluid text-center">
-  <p> <b> Imprint </b> </p>
-  <p>&copy; Timo Lietmeyer & Judith Bresser
-    <span class="footer-separator">|</span> 2020 <br/> <br/>
-    Mailto: timolietmeyer@uni-muenster.de <br/>
-    Mailto: j_bres05@uni-muenster.de </p>
-  </footer>
-  <!-- /footer -->
+    <!-- footer -->
+    <footer class="container-fluid text-center">
+      <p> <b> Imprint </b> </p>
+      <p>&copy; Timo Lietmeyer & Judith Bresser
+        <span class="footer-separator">|</span> 2020
 
-  <script src="../jquery/jquery.min.js"> </script>
-  <script src="../bootstrap/js/bootstrap.min.js"> </script>
+        <br/> <br/>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-envelope-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
+        </svg> <!-- https://icons.getbootstrap.com/icons/envelope-fill/# -->
+        Mailto: timolietmeyer@uni-muenster.de <br/>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-envelope-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
+        </svg> <!-- https://icons.getbootstrap.com/icons/envelope-fill/# -->
+        Mailto: j_bres05@uni-muenster.de </p>
 
-  <script src="/leaflet/leaflet.js"></script>
-  <script src="/leaflet-heat/leaflet-heat.js"></script>
+        <script src="printing.js"></script>
+        <a href="javascript:druck();"> print <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-printer" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11 2H5a1 1 0 0 0-1 1v2H3V3a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2h-1V3a1 1 0 0 0-1-1zm3 4H2a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h1v1H2a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1z"/>
+          <path fill-rule="evenodd" d="M11 9H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1zM5 8a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H5z"/>
+          <path d="M3 7.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"/>
+        </svg> <!-- https://icons.getbootstrap.com/icons/printer/ -->
+      </a>
+      <br><br>
+    </footer>
+    <!-- /footer -->
 
-  <script src="src/tokens.js"> </script>
-  <script src="src/script_headfunctions.js"> </script>
-  <script src="src/script_indexA.js"> </script>
+    <script src="../jquery/jquery.min.js"> </script>
+    <script src="../bootstrap/js/bootstrap.min.js"> </script>
 
-</body>
-</html>
+    <script src="/leaflet/leaflet.js"></script>
+    <script src="/leaflet-heat/leaflet-heat.js"></script>
+
+    <script src="src/tokens.js"> </script>
+    <script src="src/script_headfunctions.js"> </script>
+    <script src="src/script_indexA.js"> </script>
+
+  </body>
+  </html>
