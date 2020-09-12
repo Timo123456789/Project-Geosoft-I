@@ -1,2 +1,142 @@
-Lorem Ipsum
-Index Doc
+ <!-- Required meta tags -->
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+
+ <!-- Bootstrap CSS -->
+ <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
+ <link rel="stylesheet" href="../leaflet/leaflet.css">
+
+
+ <style>
+   .bd-placeholder-img {
+     font-size: 1.125rem;
+     text-anchor: middle;
+     -webkit-user-select: none;
+     -moz-user-select: none;
+     -ms-user-select: none;
+     user-select: none;
+   }
+
+   @media (min-width: 768px) {
+     .bd-placeholder-img-lg {
+       font-size: 3.5rem;
+     }
+   }
+ </style>
+ <!-- Custom styles for this template -->
+ <link href="src/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+ <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+   <a class="navbar-brand" href="#">Geosoftware Project</a>
+   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+     aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+     <span class="navbar-toggler-icon"></span>
+   </button>
+
+   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+     <ul class="navbar-nav mr-auto">
+       <li class="nav-item active">
+         <a class="nav-link" href="/index_A">Editor Page </a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link" href="/index_B">Screen Page<span class="sr-only">(current)</span></a>
+       </li>
+       <li class="nav-item">
+           <a class="nav-link" onclick="delete_logged_User()">Logout</a>
+         </li>
+
+     </ul>
+
+   </div>
+ </nav>
+ 
+ <p class="lead">
+ <h1><a href="index.html"></a></h1>
+
+
+
+ <div class="container-fluid">
+   <div class="row">
+     <div class="col-sm-6" id="mapbootstrap" style="height:400px">
+     </div>
+     <div class="col-sm-6" id="colum2">
+       
+       
+       
+
+  
+       <p id="demo"></p>
+
+
+   <!--   <table id="Table">
+         <tr>
+           <th>Name</th>
+           <th>type</th>
+           <th>ID</th>
+         </tr>
+       </table>
+       <br>
+       <br>
+       <form id="radiobuttons_stops">
+       </form>-->
+
+       <button type="button" onclick="check_stop_radios()">screen Departures from selected Busstop</button>
+
+       <table id="Table2">
+         <tr>
+           <th>Name</th>
+           <th>type</th>
+           <th>Stop ID</th>
+           <th>direction</th>
+           <th>line number</th>
+           <th>Time</th>
+           <th>Departure ID</th>
+         
+           <th>Infection Risk</th>
+           
+
+         </tr>
+
+
+       </table>
+       <form id="radiobuttons_departures">
+       </form>
+       
+     </div>
+
+   </div>
+ </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <script src="../jquery/jquery.min.js"> </script>
+ <script src="../bootstrap/js/bootstrap.min.js"> </script>
+
+
+ <script src="/leaflet/leaflet.js"></script>
+ <script src="/leaflet-heat/leaflet-heat.js"></script>
+
+ <script src="src/tokens.js"> </script>
+ <script src="src/script_headfunctions.js"> </script>
+ <script src="src/script_indexB.js"> </script>
+
+ 
+
+ <footer class="container">
+   <p>&copy; Timo Lietmeyer & Judith Bresser, Mailto: timolietmeyer@uni-muenster.de</p>
+ </footer>
+
+</html>
