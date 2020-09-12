@@ -49,7 +49,7 @@ function showPosition(position) {
   actpos.push(position.coords.longitude);
   actpos.push(position.coords.latitude);
 
-  console.log("Darstellen");
+  //console.log("Darstellen");
   L.marker(change(actpos)).addTo(map).bindPopup("User Position")
   getbusstops(actpos);
 
@@ -57,18 +57,6 @@ function showPosition(position) {
 
 
 
-}
-
-/**
-  *@desc change values of an array
-  */
-
-function change(array) {
-  var temp;
-  temp = array[0];
-  array[0] = array[1];
-  array[1] = temp;
-  return array;
 }
 
 
@@ -187,9 +175,9 @@ function create_Table_Busstops(busstops) {
 
 
 
-    console.log("i" + i + "  " + busstops.boards[i].place.location.lat + " , " + busstops.boards[i].place.location.lng);
-    console.log("i" + i + "  " + busstops.boards[i].place.name + " , " + busstops.boards[i].place.id);
-    console.log(busstops.board);
+    //console.log("i" + i + "  " + busstops.boards[i].place.location.lat + " , " + busstops.boards[i].place.location.lng);
+    //console.log("i" + i + "  " + busstops.boards[i].place.name + " , " + busstops.boards[i].place.id);
+    //console.log(busstops.board);
 
     L.marker([busstops.boards[i].place.location.lat, busstops.boards[i].place.location.lng]).addTo(map)
       .bindPopup(busstops.boards[i].place.name + "<br>" + "ID: " + busstops.boards[i].place.id); //set Marker for Bus stop
@@ -198,11 +186,21 @@ function create_Table_Busstops(busstops) {
 
 
   }
-  create_Collection_of_all_stops_and_departures(busstops)
+  //IF Abfrage rein ob collection vielleicht schon befüllt?
+  var tempbool = Coll_all_busstops_and_Departures_isEmpty();
+  //console.log(temp);
+  if (tempbool == true) {
+    //console.log("ist leer und wird gefüllt");
+    create_Collection_of_all_stops_and_departures(busstops)
+  }
+  //else { console.log("ist nicht leer"); }
+
   create_list_of_ratio_buttons(busstops);
 
 
 }
+
+
 
 
 
@@ -340,7 +338,7 @@ async function check_departure_radios() {
  
 
   const rbs = document.querySelectorAll('input[name="value_departures"]');
-  console.log(rbs);
+ // console.log(rbs);
   let selected_Departure_ID;
   let selected_stop_ID;
   for (const rb of rbs) {
@@ -400,8 +398,8 @@ async function create_table_departures(stop, id) {
 
 
  
-  console.log("id:" + id)
-  console.log("stop:" + stop)
+  //console.log("id:" + id)
+  //console.log("stop:" + stop)
  
 
 
@@ -511,26 +509,6 @@ minutes = minutes + parseInt(time_short.charAt((time_short.indexOf(":")+2)))
 
 
 
-function get_one_stop_with_ID(idobject) {
-
- 
-  return new Promise(function (res, rej) {
-    $.ajax({
-      url: "/all_busstops_and_departures",
-      method: "GET",
-      data: idobject,
-      success: function (result) {
-        res(result);
-       
-
-
-      },
-      error: function (err) { console.log(err) }
-    });
-  })
-
-}
-
 
 
 
@@ -540,7 +518,7 @@ function get_one_stop_with_ID(idobject) {
 
 function clean_tables() {
 
-  console.log("cleantables");
+ // console.log("cleantables");
   //$(".rt1").html(" ");
   $(".rt2").html(" ");
 
@@ -548,69 +526,6 @@ function clean_tables() {
 }
 
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////Methoden für alle HTML Seiten////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-async function check_logged_User() {
-  var logged = await get_logged_User();
-  console.log(logged);
-  if (logged[0] != undefined) {
-    window.alert("Login Sucess");
-
-
-
-  }
-  else {
-
-    window.alert("Login failed");
-    window.location.href = 'http://localhost:3000/index_Login';
-  }
-
-}
-async function get_logged_User() {
-
-
-  return new Promise(function (res, rej) {
-    $.ajax({
-      url: "/logged_User",
-      method: "GET",
-
-      success: function (result) {
-
-        res(result);
-
-      },
-      error: function (err) { console.log(err) }
-    });
-  })
-
-}
-
-
-function delete_logged_User() {
-
-  return new Promise(function (res, rej) {
-    $.ajax({
-      url: "/logged_User",
-      method: "DELETE",
-
-      success: function (result) {
-        res(result);
-        window.location.href = 'http://localhost:3000/index_Login';
-
-      },
-      error: function (err) { console.log(err) }
-    });
-  })
-}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

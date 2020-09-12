@@ -54,7 +54,7 @@ app.use('/leaflet-draw', express.static(__dirname + '/node_modules/leaflet-draw/
 
 //Send index.html on request to "/"
 app.get('/', (req,res) => {
-    res.sendFile(__dirname + '/index_A.html')
+    res.sendFile(__dirname + '/index_Login.html')
 })
 
 
@@ -189,6 +189,19 @@ app.get("/all_busstops_and_departures", (req, res) => {
 });
 
 
+//Checkt ob Collection leer ist
+app.get("/is_empty_all_busstops_and_departures", (req, res) => {
+    app.locals.db.collection("all_busstops_and_departures").count(function (err, count) {
+        if (!err && count === 0) {
+            result = true;
+        }
+        else{
+            result = false;
+        }
+        res.json(result);
+    });
+
+});
 
 
 //gibt eingeloggten User zurück
@@ -231,6 +244,9 @@ app.delete("/logged_User", (req, res) => {
         res.json(result);
     });
 });
+
+
+//fügt ausgewählten Departure hinzu mit Stop ID, User ID und Departure ID
 app.post("/selected_departures", (req, res) => {
     // insert Departure
     console.log("selected_departures " + JSON.stringify(req.body));
@@ -241,17 +257,19 @@ app.post("/selected_departures", (req, res) => {
         res.json(result);
     });
 });
+
+//sucht Departures nach übergebener ID ab
 app.get("/selected_departures", (req, res) => {
     //Search for all items in mongodb
 
    
-    console.log(req.query.id);
-   
+    console.log("selected Departure Search");
+    console.log(req.query.User)
   
     
     if (req.query != undefined) {
         console.log("Departures req ist definiert")
-        app.locals.db.collection('selected_departures').find({id:req.query.id}).toArray((error, result) => {
+        app.locals.db.collection('selected_departures').find({id:req.query.User}).toArray((error, result) => {
             if (error) {
                 console.dir(error);
             }
