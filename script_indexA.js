@@ -175,9 +175,7 @@ async function create_Table_Busstops(busstops) {
 
 
 
-    //console.log("i" + i + "  " + busstops.boards[i].place.location.lat + " , " + busstops.boards[i].place.location.lng);
-    //console.log("i" + i + "  " + busstops.boards[i].place.name + " , " + busstops.boards[i].place.id);
-    //console.log(busstops.board);
+   
 
     L.marker([busstops.boards[i].place.location.lat, busstops.boards[i].place.location.lng]).addTo(map)
       .bindPopup(busstops.boards[i].place.name + "<br>" + "ID: " + busstops.boards[i].place.id); //set Marker for Bus stop
@@ -186,15 +184,14 @@ async function create_Table_Busstops(busstops) {
 
 
   }
-  //IF Abfrage rein ob collection vielleicht schon befüllt?
-  var tempbool = await  Coll_all_busstops_and_Departures_isEmpty();
-  //console.log("tempbool");
-  //console.log(tempbool);
+  
+
+  
   if (await Coll_all_busstops_and_Departures_isEmpty() == true) {
-   // console.log("ist leer und wird gefüllt");
+
     create_Collection_of_all_stops_and_departures(busstops)
   }
- // else { console.log("ist nicht leer"); }
+
 
   create_list_of_ratio_buttons(busstops);
 

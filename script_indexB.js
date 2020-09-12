@@ -18,20 +18,77 @@ async function main_indexB (){
 var logged_User = get_logged_User();
 
 var stops_from_User = await get_stops_from_logged_User(logged_User);
-console.log("stops_from_User");
+/*console.log("stops_from_User");
 console.log(stops_from_User);
-console.log(stops_from_User.stop_id);
+console.log(stops_from_User.stop_id);*/
 
 set_Markers_at_stop_positions(stops_from_User)
+make_table(stops_from_User)
+
 
 }
 
+async function make_table(stops){
+
+    var table = document.getElementById("Table2");
+    for (var i = 0; i<stops.length;i++){
+        var stop_data =   await get_stop_data(stops[i].stop_id);
+       /* console.log("stop_data, make tables")
+        console.log(stop_data)*/
+        make_row(stop_data[0], table, stops,i);
+
+    }
 
 
 
 
 
+}
+   
 
+
+
+function make_row(data, table, stops,i){
+    var row = table.insertRow();  //insert a row
+    row.setAttribute("class", "rt1");
+
+
+
+
+    var line1 = row.insertCell()
+    line1.innerHTML = data.name;
+    line1.setAttribute("class", "t1"); //insert cell at the row variable with the pointcloud (point 2) value on place i of array array_of_objects
+
+    var line2 = row.insertCell();
+    line2.innerHTML = data.type; //insert cell at the row variable with the distance value on place i of array array_of_objects
+    line2.setAttribute("class", "t1");
+
+    var line3 = row.insertCell();
+    line3.innerHTML = data.id; //insert cell at the row variable with the distance value on place i of array array_of_objects
+    line3.setAttribute("class", "t1");
+
+    var line4 = row.insertCell() //Direction
+    line4.innerHTML = data.departures[stops[i].departure_id].transport.headsign;
+    line4.setAttribute("class", "t1"); //insert cell at the row variable with the pointcloud (point 2) value on place i of array array_of_objects
+
+    var line5 = row.insertCell(); //Line Number
+    line5.innerHTML = data.departures[stops[i].departure_id].transport.name; //insert cell at the row variable with the distance value on place i of array array_of_objects
+    line5.setAttribute("class", "t1");
+
+    
+    var line6 = row.insertCell(); //Time
+    line6.innerHTML = data.departures[stops[i].departure_id].time; //insert cell at the row variable with the distance value on place i of array array_of_objects
+    line6.setAttribute("class", "t1");
+
+    var line7 = row.insertCell(); //Departure ID
+    line7.innerHTML = stops[i].departure_id; //insert cell at the row variable with the distance value on place i of array array_of_objects
+    line7.setAttribute("class", "t1");
+
+    var line8 = row.insertCell(); //Infection Risk
+    line8.innerHTML = "Hier muss das Infektionsrisiko hin"; //insert cell at the row variable with the distance value on place i of array array_of_objects
+    line8.setAttribute("class", "t1");
+
+}
 
 
 
@@ -42,7 +99,7 @@ async function set_Markers_at_stop_positions(stops_from_User){
       console.log("stop_data");
       console.log(stop_data);
     var stop_coordinates = get_stop_coordinates(stop_data);
-        L.marker(stop_coordinates).addTo(map).bindPopup(stop_data[0].name + "<br>" + "ID: " + stop_data[0].id);
+        L.marker(stop_coordinates).addTo(map).bindPopup("Name: "+stop_data[0].name + "<br>" +"Type: "+stop_data[0].type + "<br>" +"ID: " + stop_data[0].id);
     }
 
 
