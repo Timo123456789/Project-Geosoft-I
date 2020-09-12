@@ -11,6 +11,9 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 check_logged_User()
 main_indexB()
 
+
+
+//MAIN FUNCTION
 async function main_indexB (){
 var logged_User = get_logged_User();
 
@@ -23,25 +26,47 @@ set_Markers_at_stop_positions(stops_from_User)
 
 }
 
+
+
+
+
+
+
+
+
+
+
 async function set_Markers_at_stop_positions(stops_from_User){
     for (var i = 0; i<stops_from_User.length;i++){
-      var stop_coordinates =   await get_coordinates(stops_from_User[i].stop_id);
-      console.log(stop_coordinates);
-        L.marker(stop_coordinates).addTo(map);
+      var stop_data =   await get_stop_data(stops_from_User[i].stop_id);
+      console.log("stop_data");
+      console.log(stop_data);
+    var stop_coordinates = get_stop_coordinates(stop_data);
+        L.marker(stop_coordinates).addTo(map).bindPopup(stop_data[0].name + "<br>" + "ID: " + stop_data[0].id);
     }
 
 
 
 }
-async function get_coordinates(id){
+
+
+
+function get_stop_coordinates(stop_data){
+var coor = [stop_data[0].lat,stop_data[0].lng];
+return coor;
+
+}
+
+
+
+
+async function get_stop_data(id){
     var idobject = {
         id: id,
       }
     var stop = await get_one_stop_with_ID(idobject);
     //console.log(" one stop");
-    var coor = [stop[0].lat, stop[0].lng]
-    return coor ;
-
+    return stop;
 }
 
 

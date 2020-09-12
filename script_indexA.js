@@ -138,7 +138,7 @@ function getbusstops(actpos) {
 }
 
 
-function create_Table_Busstops(busstops) {
+async function create_Table_Busstops(busstops) {
 
  
   //Variablendeklaration
@@ -187,13 +187,14 @@ function create_Table_Busstops(busstops) {
 
   }
   //IF Abfrage rein ob collection vielleicht schon befüllt?
-  var tempbool = Coll_all_busstops_and_Departures_isEmpty();
-  //console.log(temp);
-  if (tempbool == true) {
-    //console.log("ist leer und wird gefüllt");
+  var tempbool = await  Coll_all_busstops_and_Departures_isEmpty();
+  //console.log("tempbool");
+  //console.log(tempbool);
+  if (await Coll_all_busstops_and_Departures_isEmpty() == true) {
+   // console.log("ist leer und wird gefüllt");
     create_Collection_of_all_stops_and_departures(busstops)
   }
-  //else { console.log("ist nicht leer"); }
+ // else { console.log("ist nicht leer"); }
 
   create_list_of_ratio_buttons(busstops);
 

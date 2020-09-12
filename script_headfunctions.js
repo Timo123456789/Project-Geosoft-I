@@ -99,9 +99,9 @@ function get_one_stop_with_ID(idobject) {
 
 }
 
-function Coll_all_busstops_and_Departures_isEmpty(){
+async function Coll_all_busstops_and_Departures_isEmpty(){
 //console.log("testhead")
-  $.ajax({
+ return $.ajax({
     url: "/is_empty_all_busstops_and_departures",
     method: "GET",
     success: function (result) {
