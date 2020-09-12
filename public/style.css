@@ -1,0 +1,41 @@
+div.container-fluid {
+  padding-top: 20px;
+}
+div.Introduction {
+  font-family: arial, sans-serif;
+  text-align: center;
+}
+div.script {
+  text-align: left;
+}
+th{
+  background-color: #32CD32;
+  color: white;
+  max-width: 100%;
+}
+table, th, td {
+  padding: 10px;
+  border: 2px solid #A9A9A9;
+  border-color: solid black;
+  border-collapse: collapse;
+  max-width: 100%;
+}
+#header,#header2 {
+  text-align: center;
+  background-color: lightseagreen;
+  font-weight: bold;
+  color:white;
+}
+a:link {
+  color: #1122CC;
+  background-color: transparent;
+  text-decoration: underline;
+}
+a:hover {
+  color: #1122CC;
+  background-color: transparent;
+  text-decoration: underline;
+}
+button{
+  data-toggle="collapse" data-target="#demo";
+}
