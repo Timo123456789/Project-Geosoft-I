@@ -26,16 +26,9 @@ table, th, td {
   font-weight: bold;
   color:white;
 }
-a:link {
-  color: #1122CC;
-  background-color: transparent;
-  text-decoration: underline;
-}
-a:hover {
-  color: #1122CC;
-  background-color: transparent;
-  text-decoration: underline;
-}
 button{
   data-toggle="collapse" data-target="#demo";
+}
+.navbar {
+  color: white;
 }
