@@ -77,7 +77,7 @@ function make_row(data, table, stops,i){
 
     
     var line6 = row.insertCell(); //Time
-    line6.innerHTML = data.departures[stops[i].departure_id].time; //insert cell at the row variable with the distance value on place i of array array_of_objects
+    line6.innerHTML = convert_time( data.departures[stops[i].departure_id].time); //insert cell at the row variable with the distance value on place i of array array_of_objects
     line6.setAttribute("class", "t1");
 
     var line7 = row.insertCell(); //Departure ID
@@ -85,7 +85,7 @@ function make_row(data, table, stops,i){
     line7.setAttribute("class", "t1");
 
     var line8 = row.insertCell(); //Infection Risk
-    line8.innerHTML = "Hier muss das Infektionsrisiko hin"; //insert cell at the row variable with the distance value on place i of array array_of_objects
+    line8.innerHTML = stops[i].infection_risk; //insert cell at the row variable with the distance value on place i of array array_of_objects
     line8.setAttribute("class", "t1");
 
 }

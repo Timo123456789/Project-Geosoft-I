@@ -13,5 +13,58 @@ main_indexDocSite()
 
 function main_indexDocSite(){
 console.log("foo!!!!!!!!!")
+create_User_Table()
+
+}
+
+
+async function create_User_Table() {
+
+ 
+  //Variablendeklaration
+  var table = document.getElementById("User_Table");
+
+
+
+
+
+
+  for (var i = 0; (i < busstops.boards.length); i++) {
+
+
+    var row = table.insertRow();  //insert a row
+    row.setAttribute("class", "rt1");
+
+
+
+
+    var pointcloud = row.insertCell()
+    pointcloud.innerHTML = busstops.boards[i].place.name;
+    pointcloud.setAttribute("class", "t1"); //insert cell at the row variable with the pointcloud (point 2) value on place i of array array_of_objects
+
+    var array_with_calculated_distances = row.insertCell();
+    array_with_calculated_distances.innerHTML = busstops.boards[i].place.type; //insert cell at the row variable with the distance value on place i of array array_of_objects
+    array_with_calculated_distances.setAttribute("class", "t1");
+
+    var array_with_calculated_distances = row.insertCell();
+    array_with_calculated_distances.innerHTML = busstops.boards[i].place.id; //insert cell at the row variable with the distance value on place i of array array_of_objects
+    array_with_calculated_distances.setAttribute("class", "t1");
+
+
+
+
+
+
+   
+
+    L.marker([busstops.boards[i].place.location.lat, busstops.boards[i].place.location.lng]).addTo(map)
+      .bindPopup(busstops.boards[i].place.name + "<br>" + "ID: " + busstops.boards[i].place.id); //set Marker for Bus stop
+
+
+
+
+  }
+  
+
 
 }

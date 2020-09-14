@@ -139,3 +139,16 @@ async function Coll_all_busstops_and_Departures_isEmpty(){
   array[1] = temp;
   return array;
 }
+
+function convert_time(time) {
+  var str = time;
+
+  var time_pos_begin = str.indexOf("T");
+  var time_pos_end = str.lastIndexOf(":");
+  var time_short = str.slice(time_pos_begin+1,time_pos_end-3 ) //+2, um : zu entfernen
+  
+
+  return time_short;
+
+
+}
