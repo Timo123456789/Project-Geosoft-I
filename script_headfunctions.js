@@ -66,6 +66,64 @@ async function check_logged_User() {
   }
 
 
+  
+async function get_stops_by_UserID(logged_User){
+  console.log("logged User");
+  console.log(logged_User);
+  var idobject ={
+      id: logged_User
+  }
+  console.log("id_object");
+  console.log(idobject);
+  return new Promise(function (res, rej) {
+      $.ajax({
+        url: "/selected_departures",
+        method: "GET",
+        data: idobject,
+        success: function (result) {
+         return res(result);
+         
+  
+  
+        },
+        error: function (err) { console.log(err) }
+      });
+    })
+
+}
+
+
+
+
+async function get_User_by_TravID(TravID){
+  console.log("TravID");
+  console.log(TravID);
+  var idobject ={
+      UserID: TravID
+
+  }
+  console.log("id_object");
+  console.log(idobject);
+  return new Promise(function (res, rej) {
+      $.ajax({
+        url: "/search_by_UserID",
+        method: "GET",
+        data: idobject,
+        success: function (result) {
+         return res(result);
+         
+  
+  
+        },
+        error: function (err) { console.log(err) }
+      });
+    })
+
+
+
+}
+
+
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -152,3 +210,16 @@ function convert_time(time) {
 
 
 }
+
+/**
+  *@desc function to clean rows of all tables
+  */
+
+function clean_tables() {
+
+  // console.log("cleantables");
+   //$(".rt1").html(" ");
+   $(".rt2").html(" ");
+ 
+ 
+ }

@@ -19,10 +19,12 @@ async function connectMongoDB() {
         app.locals.db = await app.locals.dbConnection.db("MainDB");
         console.log("Using db: " + app.locals.db.databaseName);
        
-      // app.locals.db.collection("User").drop( (err,delOK) => {if(delOK) console.log("collection User cleared")} );
-      //  app.locals.db.collection("all_busstops_and_departures").drop( (err,delOK) => {if(delOK) console.log("collection all_busstops_and_departures cleared")} );
-     app.locals.db.collection("selected_departures").drop( (err,delOK) => {if(delOK) console.log("collection departures cleared")} );
-       // app.locals.db.collection("logged_User").drop( (err,delOK) => {if(delOK) console.log("collection logged_User cleared")} );
+       //app.locals.db.collection("User").drop( (err,delOK) => {if(delOK) console.log("collection User cleared")} );
+     //  app.locals.db.collection("all_busstops_and_departures").drop( (err,delOK) => {if(delOK) console.log("collection all_busstops_and_departures cleared")} );
+        app.locals.db.collection("logged_User").drop( (err,delOK) => {if(delOK) console.log("collection logged_User cleared")} );
+
+
+       //app.locals.db.collection("selected_departures").drop( (err,delOK) => {if(delOK) console.log("collection selected departures cleared")} );
 
     }
     catch (error) {
@@ -118,7 +120,7 @@ app.post("/logged_User", (req, res) => {
     });
 });
 
-//Sucht einen bestimmten User mit Passwort und gibt ihn zurück
+//Sucht einen bestimmten User anhand von Passwort und Username und gibt ihn zurück
 app.get("/User", (req, res) => {
     //Search for all items in mongodb
 
@@ -147,6 +149,28 @@ app.get("/User", (req, res) => {
 
     }
 
+
+});
+
+//Sucht einen User anhand von UserID
+app.get("/search_by_UserID", (req, res) => {
+    //Search for all items in mongodb
+
+   
+    console.log(req.query);
+   
+  
+    
+    if (req.query.UserID != undefined) {
+        
+        app.locals.db.collection('User').find(req.query).toArray((error, result) => {
+            if (error) {
+                console.dir(error);
+            }
+            res.json(result);
+        });
+    }
+    
 
 });
 
@@ -193,6 +217,33 @@ app.delete("/logged_User", (req, res) => {
     });
 });
 
+//gibt alle User zurück
+app.get("/User", (req, res) => {
+    //Search for all items in mongodb
+
+   
+    //console.log("req.query, eingelogter User");
+    //console.log(req.query);
+   
+  
+    
+        
+  
+        
+        app.locals.db.collection('User').find().toArray((error, result) => {
+            if (error) {
+                console.dir(error);
+            }
+            res.json(result);
+        });
+       // console.log("else");
+
+    
+       
+
+
+});
+
 
 
 
@@ -218,18 +269,18 @@ app.post("/selected_departures", (req, res) => {
     });
 });
 
-//sucht Departures nach übergebener ID ab
+//sucht Departures nach übergebener Traveller ID ab und gibt Departures mit entsprechender TravID zurück
 app.get("/selected_departures", (req, res) => {
     //Search for all items in mongodb
 
    
     console.log("selected Departure Search");
-    console.log(req.query.User)
+    console.log(req.query.id)
   
     
     if (req.query != undefined) {
         console.log("Departures req ist definiert")
-        app.locals.db.collection('selected_departures').find({id:req.query.User}).toArray((error, result) => {
+        app.locals.db.collection('selected_departures').find({user:req.query.id}).toArray((error, result) => {
             if (error) {
                 console.dir(error);
             }

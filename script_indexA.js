@@ -482,18 +482,9 @@ function update_dep_table(stop,i,id,table){
 
 
 
-/**
-  *@desc function to clean rows of all tables
-  */
-
-function clean_tables() {
-
- // console.log("cleantables");
-  //$(".rt1").html(" ");
-  $(".rt2").html(" ");
 
 
-}
+
 
 
 

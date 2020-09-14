@@ -15,12 +15,13 @@ main_indexB()
 
 //MAIN FUNCTION
 async function main_indexB (){
-var logged_User = get_logged_User();
-
-var stops_from_User = await get_stops_from_logged_User(logged_User);
-/*console.log("stops_from_User");
+var logged_User = await get_logged_User();
+console.log("SCRIPT logged_User");
+console.log(logged_User[0].userID);
+var stops_from_User = await get_stops_by_UserID(logged_User[0].userID);
+console.log("stops_from_User");
 console.log(stops_from_User);
-console.log(stops_from_User.stop_id);*/
+console.log(stops_from_User.stop_id);
 
 set_Markers_at_stop_positions(stops_from_User)
 make_table(stops_from_User)
@@ -128,25 +129,3 @@ async function get_stop_data(id){
 
 
 
-
-async function get_stops_from_logged_User(logged_User){
-    var idobject ={
-        User: logged_User
-
-    }
-    return new Promise(function (res, rej) {
-        $.ajax({
-          url: "/selected_departures",
-          method: "GET",
-          data: idobject,
-          success: function (result) {
-           return res(result);
-           
-    
-    
-          },
-          error: function (err) { console.log(err) }
-        });
-      })
-
-}
