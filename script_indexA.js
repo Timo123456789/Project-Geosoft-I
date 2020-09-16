@@ -412,7 +412,7 @@ async function create_table_departures(stop, id) {
 
 
   
-  console.log(stop);
+  //console.log(stop);
     for (var i = 0; i < stop[0].departures.length; i++) {
 
       
