@@ -19,12 +19,12 @@ async function connectMongoDB() {
         app.locals.db = await app.locals.dbConnection.db("MainDB");
         console.log("Using db: " + app.locals.db.databaseName);
        
-     // app.locals.db.collection("User").drop( (err,delOK) => {if(delOK) console.log("collection User cleared")} );
-     // app.locals.db.collection("all_busstops_and_departures").drop( (err,delOK) => {if(delOK) console.log("collection all_busstops_and_departures cleared")} );
-      // app.locals.db.collection("logged_User").drop( (err,delOK) => {if(delOK) console.log("collection logged_User cleared")} );
+      app.locals.db.collection("User").drop( (err,delOK) => {if(delOK) console.log("collection User cleared")} );
+      app.locals.db.collection("all_busstops_and_departures").drop( (err,delOK) => {if(delOK) console.log("collection all_busstops_and_departures cleared")} );
+       app.locals.db.collection("logged_User").drop( (err,delOK) => {if(delOK) console.log("collection logged_User cleared")} );
 
 
-       //app.locals.db.collection("selected_departures").drop( (err,delOK) => {if(delOK) console.log("collection selected departures cleared")} );
+       app.locals.db.collection("selected_departures").drop( (err,delOK) => {if(delOK) console.log("collection selected departures cleared")} );
 
     }
     catch (error) {
@@ -331,23 +331,23 @@ app.get("/get_all", (req, res) => {
 
 app.put("/selected_departures", (req, res) => {
     //var newvalues;
-    console.log("req.body")
-    console.log(req.body)
+   // console.log("req.body")
+   // console.log(req.body)
     req.query={
         Stopid:req.body.StopID,
         DepID:req.body.DepID
     }
 
-    console.log("req.query")
-    console.log(req.query)
+   // console.log("req.query")
+  //  console.log(req.query)
     var newvalues ={ $set:{
         infection_risk:req.body.infection_risk,
         begin_time:req.body.begin_time,
         end_time:req.body.end_time}
 
     }
-    console.log("newvalues");
-    console.log(newvalues);
+  //  console.log("newvalues");
+   // console.log(newvalues);
 
     app.locals.db.collection('selected_departures').updateMany({departure_id: req.query.DepID, stop_id:req.query.Stopid}, newvalues, function(err, res) {
         if (err) throw err;
@@ -389,7 +389,7 @@ app.get("/all_busstops_and_departures", (req, res) => {
     
     if (req.query != undefined) {
       //  console.log("req ist definiert")
-        app.locals.db.collection('all_busstops_and_departures').find(req.query.id).toArray((error, result) => {
+        app.locals.db.collection('all_busstops_and_departures').find({id:req.query.id}).toArray((error, result) => {
             if (error) {
                 console.dir(error);
             }

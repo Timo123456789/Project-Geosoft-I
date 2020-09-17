@@ -39,10 +39,7 @@
    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
      <ul class="navbar-nav mr-auto">
        <li class="nav-item active">
-         <a class="nav-link" href="/index_A">Editor Page </a>
-       </li>
-       <li class="nav-item">
-         <a class="nav-link" href="/index_B">Screen Page<span class="sr-only">(current)</span></a>
+         <a class="nav-link" href="/index_Doc">Doc Page </a>
        </li>
        <li class="nav-item">
            <a class="nav-link" onclick="delete_logged_User()">Logout</a>
@@ -81,8 +78,13 @@
        <br>
        <form id="radiobuttons_User">
        </form>
+       Begin Time:<br>
+       <textarea id="Begin_time" cols="20" rows="1">22:41</textarea></p>
+     End Time:<br>
+       <textarea id="End_time"cols="20" rows="1">23:41</textarea><br >
 
        <button type="button" onclick="check_User_radios()">View Departures from selected User</button>
+       <button type="button" onclick="check_User_radios_all_dep()">declare all departures from selected User as infected</button>
 
        <table id="Departure_Table">
          <tr>
@@ -101,12 +103,10 @@
        </table>
        <form id="radiobuttons_departures">
        </form>
-       Begin Time:<br>
-       <textarea id="Begin_time" cols="20" rows="1">Set Time as "22:41"</textarea></p>
-     End Time:<br>
-       <textarea id="End_time"cols="20" rows="1">Set Time as "23:41"</textarea><br >
-     </div>
+     
        <button type="button" onclick="check_Departure_radios()">Add Departure from User as Risk</button>
+     </div>
+      
      </div>
 
    </div>

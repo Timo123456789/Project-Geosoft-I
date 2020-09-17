@@ -135,7 +135,21 @@ async function get_User_by_TravID(TravID){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+async function set_Markers_at_stop_positions(stops_from_User){
+  for (var i = 0; i<stops_from_User.length;i++){
+    var stop_data =   await get_stop_data(stops_from_User[i].stop_id);
+    console.log("stop_data");
+    console.log(stop_data);
+    console.log(stops_from_User[i].infection_risk);
+  var stop_coordinates = get_stop_coordinates(stop_data);
+  if(stops_from_User[i].infection_risk == "yes"){
+      L.marker(stop_coordinates,{icon: redIcon}).addTo(map).bindPopup("Name: "+stop_data[0].name + "<br>" +"Type: "+stop_data[0].type + "<br>" +"ID: " + stop_data[0].id);
+  }
+      else{
+          L.marker(stop_coordinates,{icon: greenIcon}).addTo(map).bindPopup("Name: "+stop_data[0].name + "<br>" +"Type: "+stop_data[0].type + "<br>" +"ID: " + stop_data[0].id);
+      }
+  }
+}
 
 function get_one_stop_with_ID(idobject) {
 
@@ -223,3 +237,43 @@ function clean_tables() {
  
  
  }
+
+
+
+ function get_stop_coordinates(stop_data){
+  var coor = [stop_data[0].lat,stop_data[0].lng];
+  return coor;
+  
+  }
+
+
+  
+async function get_stop_data(id){
+  var idobject = {
+      id: id,
+    }
+  var stop = await get_one_stop_with_ID(idobject);
+  //console.log(" one stop");
+  return stop;
+}
+ 
+var greenIcon = new L.Icon({
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
+
+
+
+var redIcon = new L.Icon({
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
+

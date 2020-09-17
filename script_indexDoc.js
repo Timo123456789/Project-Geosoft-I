@@ -14,14 +14,27 @@ main_indexDocSite()
 async function main_indexDocSite() {
 
   var all_user_data = await get_all_User();
-
   var data = clean_docs(all_user_data)
-
-
+  create_markers(data)
   create_User_Table(data)
   create_User_Ratios(data)
 
 }
+
+
+
+async function create_markers(data){
+  console.log(data);
+  for (var i = 0; i<data.length;i++){
+    var stops_from_iten_User =   await get_stops_by_UserID(data[i].userID);
+    console.log("stop_data von "+i+"ten Nutzern");
+    console.log(stops_from_iten_User);
+    set_Markers_at_stop_positions(stops_from_iten_User)
+  }
+
+
+}
+
 
 function create_User_Ratios(data) {
 
@@ -75,6 +88,34 @@ function check_User_radios() {
 
 }
 
+
+
+function check_User_radios_all_dep() {
+
+  const rbs = document.querySelectorAll('input[name="value"]');
+  let selectedValue;
+  for (const rb of rbs) {
+    if (rb.checked) {
+      selectedValue = rb.value;
+      console.log(rb);
+      console.log("selectedValue")
+      console.log(selectedValue)
+      add_every_status_of_all_departures_to_infected(selectedValue)
+
+      //clean_tables();
+      //create_table_departures(selected_stop, selectedValue)
+      break;
+    }
+  }
+
+
+
+}
+
+
+
+
+
 async function create_table_with_taken_departures(Trav_ID) {
 
 
@@ -82,16 +123,16 @@ async function create_table_with_taken_departures(Trav_ID) {
 
 
   var Trav = await get_User_by_TravID(Trav_ID)
-  console.log("TravellerData");
-  console.log(Trav);
+ // console.log("TravellerData");
+  //console.log(Trav);
   var user_stop_data = await get_stops_by_UserID(Trav[0].userID);
 
-  console.log("user_stop_data");
+  /*console.log("user_stop_data");
   console.log(user_stop_data);
   console.log("stop id");
   console.log(user_stop_data[0].stop_id);
   console.log("dep id");
-  console.log(user_stop_data[0].departure_id);
+  console.log(user_stop_data[0].departure_id);*/
   //Variablendeklaration
   var table = document.getElementById("Departure_Table");
   var checkbox = []
@@ -250,6 +291,29 @@ console.log(Update_Object);
   get_all()
 
 }
+
+
+async function   add_every_status_of_all_departures_to_infected(Trav_ID){
+  var Trav = await get_User_by_TravID(Trav_ID)
+  // console.log("TravellerData");
+   //console.log(Trav);
+   var user_stop_data = await get_stops_by_UserID(Trav[0].userID);
+   console.log(user_stop_data);
+   for(var i=0; i<user_stop_data.length;i++){
+    var infec_dep={
+      stop_id: user_stop_data[i].stop_id,
+      dep_id: user_stop_data[i].departure_id,
+    }
+    add_every_status_to_infected(infec_dep)
+   }
+  
+}
+
+
+
+
+
+
 
 
 async function get_all(){
