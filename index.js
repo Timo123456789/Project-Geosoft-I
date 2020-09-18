@@ -308,33 +308,6 @@ app.get("/selected_departures", (req, res) => {
 });
 
 
-/**
-*Sollte eigentlich gelöscht werden
-*
-*
-*
-*/
-
-app.get("/get_all", (req, res) => {
-    //Search for all items in mongodb
-
-   
-    //console.log("req.query, eingelogter User");
-    //console.log(req.query);  
-        
-        app.locals.db.collection('selected_departures').find().toArray((error, result) => {
-            if (error) {
-                console.dir(error);
-            }
-            res.json(result);
-        });
-       // console.log("else");
-
-    
-       
-
-
-});
 
 /**
 *@desc  update at Collection "selected_departures" by StopID and DepartureID the selected Values with infections_risk, begin_time and end_time,

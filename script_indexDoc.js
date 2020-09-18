@@ -288,7 +288,7 @@ console.log(Update_Object);
     },
     error: function (err) { console.log(err) }
   });
-  get_all()
+
 
 }
 
@@ -316,27 +316,7 @@ async function   add_every_status_of_all_departures_to_infected(Trav_ID){
 
 
 
-async function get_all(){
-  $.ajax({
-    url: "/get_all",
-    method: "GET",
-  
-    success: function (result) {
-      // console.log(" res(result");
-      // console.log( result);
-      
-      console.log(JSON.stringify(result));
 
-
-
-    },
-    error: function (err) { console.log(err) }
-  });
-
-
-
-
-}
 
 function create_User_Table(only_user) {
 

@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
   <link rel="stylesheet" href="../leaflet/leaflet.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="public\style.css">
+  <link rel="stylesheet" href="src/public/style.css">
 </head>
 
 <body>
@@ -30,23 +30,14 @@
       <!-- Navbar links -->
       <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="nav navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="C:\Users\Judith\Documents\GitHub\Project-Geosoft-I\index_Login.html">Login Page</a>
-          </li>
           <li class="nav-item active">
-            <a class="nav-link" href="C:\Users\Judith\Documents\GitHub\Project-Geosoft-I\index_A.html">Editor Page</a>
+            <a class="nav-link" href="/index_A">Editor Page</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="C:\Users\Judith\Documents\GitHub\Project-Geosoft-I\index_B.html">Screen Page</a>
+            <a class="nav-link" href="/index_B">Screen Page</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="C:\Users\Judith\Documents\GitHub\Project-Geosoft-I\index_Doc.html">Doctors Page</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="C:\Users\Judith\Documents\GitHub\Project-Geosoft-I\index_Test.html">Test Page</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href=" ">Logout</a> <!-- <a class="nav-link" onclick="delete_logged_User()">Logout</a> -->
+          <li>
+            <a class="nav-link" onclick="delete_logged_User()">Logout</a> 
           </li>
         </ul>
       </div>
@@ -68,9 +59,8 @@
   <!-- main container -->
   <div class="container-fluid">
     <div class="row">
-      <div class="col-sm-6" id="mapSection" style="height:400px">
+      <div class="col-sm-6" id="mapbootstrap" style="height:400px">
         <p class="lead">
-          <h1><a href="index.html"></a>Karte</h1> </p>
         </div>
 
         <br>
@@ -143,7 +133,7 @@
           </svg> <!-- https://icons.getbootstrap.com/icons/envelope-fill/# -->
           Mailto: j_bres05@uni-muenster.de </p>
 
-          <script src="printing.js"></script>
+          <script src="src/printing.js"></script>
           <a href="javascript:druck();"> print <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-printer" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path d="M11 2H5a1 1 0 0 0-1 1v2H3V3a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2h-1V3a1 1 0 0 0-1-1zm3 4H2a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h1v1H2a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1z"/>
             <path fill-rule="evenodd" d="M11 9H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1zM5 8a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H5z"/>
