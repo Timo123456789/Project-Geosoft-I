@@ -183,9 +183,9 @@ async function create_Table_Busstops(busstops) {
   }
 
 
-  if (await Coll_all_busstops_and_Departures_isEmpty() == true) {  //IF Clause for checking Collection for data
+  
     create_Collection_of_all_stops_and_departures(busstops) //Function to create Collection with busstop data
-  }
+  
 
   create_list_of_ratio_buttons(busstops); //create List of ratio buttons from busstop data
 
@@ -212,7 +212,7 @@ function create_Collection_of_all_stops_and_departures(busstops) {
       lng: busstops.boards[i].place.location.lng,
       departures: busstops.boards[i].departures
     };
-
+console.log(result);
     $.ajax({
       url: "/all_busstops_and_departures",
       method: "POST",

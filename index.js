@@ -21,7 +21,7 @@ async function connectMongoDB() {
 
         app.locals.db.collection("User").drop((err, delOK) => { if (delOK) console.log("collection User cleared") });
         app.locals.db.collection("all_busstops_and_departures").drop((err, delOK) => { if (delOK) console.log("collection all_busstops_and_departures cleared") });
-        app.locals.db.collection("logged_User").drop((err, delOK) => { if (delOK) console.log("collection logged_User cleared") });
+        // app.locals.db.collection("logged_User").drop((err, delOK) => { if (delOK) console.log("collection logged_User cleared") });
         app.locals.db.collection("selected_departures").drop((err, delOK) => { if (delOK) console.log("collection selected departures cleared") });
 
     }
@@ -135,7 +135,6 @@ app.post("/User", (req, res) => {
 
 app.post("/logged_User", (req, res) => {
     // insert User
-    console.log("logged User " + JSON.stringify(req.body));
     app.locals.db.collection('logged_User').insertOne(req.body, (error, result) => {
         if (error) {
             console.dir(error);
@@ -351,7 +350,7 @@ app.put("/selected_departures", (req, res) => {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
-*@desc  add all Departure to Collection "all_busstops_and_departures" 
+*@desc  add all Departure to Collection "all_busstops_and_departures" only when data not exist
 *@param  req.query = Object with Parameters
 *
 *
@@ -359,12 +358,28 @@ app.put("/selected_departures", (req, res) => {
 */
 
 app.post("/all_busstops_and_departures", (req, res) => {
-    app.locals.db.collection('all_busstops_and_departures').insertOne(req.body, (error, result) => {
-        if (error) {
-            console.dir(error);
-        }
-        res.json(result);
-    });
+
+    app.locals.db.collection('all_busstops_and_departures')
+        .find({ name: req.body.name, id: req.body.id, departures: req.body.departures }).toArray((error, result) => {
+            if (error) {
+                console.dir(error);
+            }
+         
+           if (result.length==0){
+            app.locals.db.collection('all_busstops_and_departures').insertOne(req.body, (error, result) => {
+                if (error) {
+                    console.dir(error);
+                }
+                res.json(result);
+            });
+
+           }
+           
+        })  
+        
+      
+        
+   
 });
 
 
