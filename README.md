@@ -18,7 +18,7 @@ TODOS
     -gitIgnore Updaten (PNGs rausnehmen)
     
 # Readme notes during the discussion and documentation of the code
-Used API: Here API
+Used API: Here API, add API KEY in tokenfile for using the app
 
 Steps: 0: Install all dependencies with package.json
 1.	start server with node.js
