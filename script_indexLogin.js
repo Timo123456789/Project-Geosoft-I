@@ -1,6 +1,9 @@
 var IDDocs = 1;
 var IDTravs = 1;
 
+check_logged_User()
+login()
+
 
 function createUserDoc() {
 

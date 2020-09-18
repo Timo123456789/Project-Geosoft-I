@@ -22,8 +22,6 @@ async function connectMongoDB() {
       app.locals.db.collection("User").drop( (err,delOK) => {if(delOK) console.log("collection User cleared")} );
       app.locals.db.collection("all_busstops_and_departures").drop( (err,delOK) => {if(delOK) console.log("collection all_busstops_and_departures cleared")} );
        app.locals.db.collection("logged_User").drop( (err,delOK) => {if(delOK) console.log("collection logged_User cleared")} );
-
-
        app.locals.db.collection("selected_departures").drop( (err,delOK) => {if(delOK) console.log("collection selected departures cleared")} );
 
     }
@@ -51,7 +49,7 @@ app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist')
 //Make leafleatheat accessible voer localhost:3000/leaflet-heap
 app.use('/leaflet-heat', express.static(__dirname + '/node_modules/leaflet.heat/dist'));
 
-//Make leafleatheat accessible voer localhost:3000/leaflet-heap
+//Make leafleatheat accessible voer localhost:3000/leaflet-draw
 app.use('/leaflet-draw', express.static(__dirname + '/node_modules/leaflet-draw/dist'));
 
 //Send index.html on request to "/"
@@ -60,22 +58,34 @@ app.get('/', (req,res) => {
 })
 
 
-//Send index.html on request to "/"
-app.get('/index_A', (req,res) => {
-    res.sendFile(__dirname + '/index_A.html')
-})
+
+
+//Send index_Doc.html on request to "/index_Doc"
 app.get('/index_Doc', (req,res) => {
     res.sendFile(__dirname + '/index_Doc.html')
 })
+
+//Send index_Login.html on request to "/index_Login"
 app.get('/index_Login', (req,res) => {
     res.sendFile(__dirname + '/index_Login.html')
 })
+
+//Send index_Login.html on request to "/index_A"
 app.get('/index_A', (req,res) => {
     res.sendFile(__dirname + '/index_A.html')
 })
+
+//Send index_Login.html on request to "/index_B"
 app.get('/index_B', (req,res) => {
     res.sendFile(__dirname + '/index_B.html')
 })
+
+//Send index_Login.html on request to "/index_B"
+app.get('/test', (req,res) => {
+    res.sendFile(__dirname + '/index_Test.html')
+})
+
+
 
 // listen on port 3000
 app.listen(port,
@@ -85,13 +95,21 @@ app.listen(port,
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////USER////////////////////////////////////////////////////////////
+//////////////////////////////////////////USER Functions////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+*@desc insert a User in Collection "User"
+*@param  req.query = Object with Parameters
+*
+*
+*
+*/
 
 app.post("/User", (req, res) => {
     // insert User
@@ -106,7 +124,13 @@ app.post("/User", (req, res) => {
 
 
 
-
+/**
+*@desc insert one User in Collection "logged_User"
+*@param  req.query = Object with Parameters
+*
+*
+*
+*/
 
 
 app.post("/logged_User", (req, res) => {
@@ -120,15 +144,17 @@ app.post("/logged_User", (req, res) => {
     });
 });
 
-//Sucht einen bestimmten User anhand von Passwort und Username und gibt ihn zurück
-app.get("/User", (req, res) => {
-    //Search for all items in mongodb
+/**
+*@desc search for a User by Users Password and Username, if they found no User with Password and Username they request all Users
+*in Collection "User"
+*@param  req.query = Object with Parameters
+*
+*
+*
+*/
 
-   
-  //  console.log(req.query);
-   
-  
-    
+
+app.get("/User", (req, res) => {
     if (req.query.Username != undefined && req.query.Password != undefined) {
         
         app.locals.db.collection('User').find(req.query).toArray((error, result) => {
@@ -148,21 +174,20 @@ app.get("/User", (req, res) => {
         });
 
     }
-
-
 });
 
-//Sucht einen User anhand von UserID
-app.get("/search_by_UserID", (req, res) => {
-    //Search for all items in mongodb
 
-   console.log("search by User ID");
-    console.log(req.query);
-   
-  
-    
-    if (req.query.UserID != undefined) {
-        
+
+/**
+*@desc  search for a User by UserID in Collection "User"
+*@param  req.query = Object with Parameters
+*
+*
+*
+*/
+
+app.get("/search_by_UserID", (req, res) => {
+    if (req.query.UserID != undefined) {  
         app.locals.db.collection('User').find({userID: req.query.UserID}).toArray((error, result) => {
             if (error) {
                 console.dir(error);
@@ -170,45 +195,30 @@ app.get("/search_by_UserID", (req, res) => {
             res.json(result);
         });
     }
-    
-
 });
 
 
+/**
+*@desc  request the logged User from Collection "logged_User"
+*
+*/
 
-//gibt eingeloggten User zurück
-app.get("/logged_User", (req, res) => {
-    //Search for all items in mongodb
-
-   
-    //console.log("req.query, eingelogter User");
-    //console.log(req.query);
-   
-  
-    
-        
-  
-        
+app.get("/logged_User", (req, res) => {   
         app.locals.db.collection('logged_User').find().toArray((error, result) => {
             if (error) {
                 console.dir(error);
             }
             res.json(result);
         });
-       // console.log("else");
-
-    
-       
-
-
 });
 
-//löscht eingeloggten User
-app.delete("/logged_User", (req, res) => {
-    // delete item
-   
-    console.log("delete item " + JSON.stringify(req.body));
-   
+
+/**
+*@desc  deleted the logged User from Collection "logged_User"
+*
+*/
+
+app.delete("/logged_User", (req, res) => { 
     app.locals.db.collection('logged_User').deleteOne(req.body, (error, result) => {
         if (error) {
             console.dir(error);
@@ -217,37 +227,25 @@ app.delete("/logged_User", (req, res) => {
     });
 });
 
-//gibt alle User zurück
-app.get("/User", (req, res) => {
-    //Search for all items in mongodb
 
-   
-    //console.log("req.query, eingelogter User");
-    //console.log(req.query);
-   
-  
-    
-        
-  
-        
+/**
+*@desc  request all Users from Collection "Users" as Array
+*
+*/
+app.get("/User", (req, res) => {
         app.locals.db.collection('User').find().toArray((error, result) => {
             if (error) {
                 console.dir(error);
             }
             res.json(result);
         });
-       // console.log("else");
-
-    
-       
-
-
 });
 
 
 
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////Selected Stops/////////////////////////////////////////////////////////
@@ -257,10 +255,17 @@ app.get("/User", (req, res) => {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//fügt ausgewählten Departure hinzu mit Stop ID, User ID und Departure ID
+
+/**
+*@desc  add selected Departure to Collection "selected_departures" with Stop ID, User ID and Departure ID
+*@param  req.query = Object with Parameters
+*
+*
+*
+*/
+
+
 app.post("/selected_departures", (req, res) => {
-    // insert Departure
-  //  console.log("selected_departures " + JSON.stringify(req.body));
     app.locals.db.collection('selected_departures').insertOne(req.body, (error, result) => {
         if (error) {
             console.dir(error);
@@ -269,29 +274,26 @@ app.post("/selected_departures", (req, res) => {
     });
 });
 
-//sucht Departures nach übergebener Traveller ID ab und gibt Departures mit entsprechender TravID zurück
-app.get("/selected_departures", (req, res) => {
-    //Search for all items in mongodb
 
-   
-  //  console.log("selected Departure Search");
-   // console.log(req.query.id)
-  
-    
+
+/**
+*@desc  search at Collection "selected_departures" by UserID and request all taken departures from User with this UserID,
+*if they are no departures with this UserID, they request all selected departures
+*@param  req.query = Object with Parameters
+*
+*
+*
+*/
+app.get("/selected_departures", (req, res) => {
     if (req.query != undefined) {
-      //  console.log("Departures req ist definiert")
         app.locals.db.collection('selected_departures').find({user:req.query.id}).toArray((error, result) => {
             if (error) {
                 console.dir(error);
             }
-           // console.log("res"+JSON.stringify(res))
-         //   console.log("result"+JSON.stringify(result))
             res.json(result);
         });
     }
     else {
-        console.log("else Teil departure")
-      
         app.locals.db.collection('selected_departures').find().toArray((error, result) => {
             if (error) {
                 console.dir(error);
@@ -305,6 +307,13 @@ app.get("/selected_departures", (req, res) => {
 
 });
 
+
+/**
+*Sollte eigentlich gelöscht werden
+*
+*
+*
+*/
 
 app.get("/get_all", (req, res) => {
     //Search for all items in mongodb
@@ -327,28 +336,27 @@ app.get("/get_all", (req, res) => {
 
 });
 
-
+/**
+*@desc  update at Collection "selected_departures" by StopID and DepartureID the selected Values with infections_risk, begin_time and end_time,
+*if they are no departures with this UserID, they request all selected departures
+*@param  req.query = Object with identifier Parameters
+*@param  newvalues = Object with to new Parameters
+*
+*
+*
+*/
 
 app.put("/selected_departures", (req, res) => {
-    //var newvalues;
-   // console.log("req.body")
-   // console.log(req.body)
     req.query={
         Stopid:req.body.StopID,
         DepID:req.body.DepID
     }
-
-   // console.log("req.query")
-  //  console.log(req.query)
     var newvalues ={ $set:{
         infection_risk:req.body.infection_risk,
         begin_time:req.body.begin_time,
         end_time:req.body.end_time}
 
     }
-  //  console.log("newvalues");
-   // console.log(newvalues);
-
     app.locals.db.collection('selected_departures').updateMany({departure_id: req.query.DepID, stop_id:req.query.Stopid}, newvalues, function(err, res) {
         if (err) throw err;
         console.log("all selected Departures Updatet");
@@ -359,7 +367,7 @@ app.put("/selected_departures", (req, res) => {
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////All Busstops and Departures/////////////////////////////////////////////////////////
+///////////////////////////////////////////All Busstops and Departures///////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -367,9 +375,15 @@ app.put("/selected_departures", (req, res) => {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+/**
+*@desc  add all Departure to Collection "all_busstops_and_departures" 
+*@param  req.query = Object with Parameters
+*
+*
+*
+*/
+
 app.post("/all_busstops_and_departures", (req, res) => {
-    // insert Departure
-    //console.log("all_busstops_and_departures " + JSON.stringify(req.body));
     app.locals.db.collection('all_busstops_and_departures').insertOne(req.body, (error, result) => {
         if (error) {
             console.dir(error);
@@ -378,43 +392,39 @@ app.post("/all_busstops_and_departures", (req, res) => {
     });
 });
 
-//Sucht eine bestimmte Haltestelle
-app.get("/all_busstops_and_departures", (req, res) => {
-    //Search for all items in mongodb
 
-   
-   // console.log(req.query.id);
-   
-  
-    
+/**
+*@desc  search one Stop by StopID
+*@param  req.query = Object with Parameters
+*
+*
+*
+*/
+app.get("/all_busstops_and_departures", (req, res) => {
     if (req.query != undefined) {
-      //  console.log("req ist definiert")
         app.locals.db.collection('all_busstops_and_departures').find({id:req.query.id}).toArray((error, result) => {
             if (error) {
                 console.dir(error);
             }
-           // console.log("res"+JSON.stringify(res))
-           // console.log("result"+JSON.stringify(result))
             res.json(result);
         });
     }
     else {
-        
         app.locals.db.collection('all_busstops_and_departures').find().toArray((error, result) => {
             if (error) {
                 console.dir(error);
             }
             res.json(result);
         });
-        console.log("else");
-
     }
-
-
 });
 
-
-//Checkt ob Collection leer ist
+/**
+*@desc Check if Collection "all_busstops_and_departures" is Empty and request True or False
+*
+*
+*
+*/
 app.get("/is_empty_all_busstops_and_departures", (req, res) => {
     app.locals.db.collection("all_busstops_and_departures").count(function (err, count) {
         if (!err && count === 0) {
@@ -427,74 +437,3 @@ app.get("/is_empty_all_busstops_and_departures", (req, res) => {
     });
 
 });
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////CODE FRIEDHOF////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*
-app.get("/departures", (req, res) => {
-    //Search for all items in mongodb
-
-   
-    console.log(req.query.id);
-   
-  
-    
-    if (req.query != undefined) {
-        console.log("Departures req ist definiert")
-        app.locals.db.collection('departures').find({id:req.query.id}).toArray((error, result) => {
-            if (error) {
-                console.dir(error);
-            }
-           // console.log("res"+JSON.stringify(res))
-            console.log("result"+JSON.stringify(result))
-            res.json(result);
-        });
-    }
-    else {
-        console.log("else Teil departure")
-      
-        app.locals.db.collection('departures').find().toArray((error, result) => {
-            if (error) {
-                console.dir(error);
-            }
-            res.json(result);
-        });
-        console.log("else");
-
-    }
-
-
-});
-
-
-app.post("/departures", (req, res) => {
-    // insert Departure
-    console.log("departures " + JSON.stringify(req.body));
-    app.locals.db.collection('departures').insertOne(req.body, (error, result) => {
-        if (error) {
-            console.dir(error);
-        }
-        res.json(result);
-    });
-});
-
- app.locals.db.collection("departures").drop( (err,delOK) => {if(delOK) console.log("collection departures cleared")} );
-
-
-
-
-
-
-
-
-
-*/
