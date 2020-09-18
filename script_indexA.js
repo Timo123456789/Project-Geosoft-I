@@ -6,28 +6,57 @@ var map = L.map('mapbootstrap', { layers: [layergroup] }).setView([51.9574469, 7
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
+var DepID = 0;
 
+ 
+var greenIcon = new L.Icon({
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
+
+
+
+var redIcon = new L.Icon({
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
 
 check_logged_User()
 getLocation()
 
+main_indexA()
 
+async function main_indexA(actpos){
+//var userpos = await getLocation();
+L.marker(change(actpos)).addTo(map).bindPopup("User Position")
+  getbusstops(actpos);
+
+}
 
 
 /**
 *@desc return the user location via Callback function "showPosition"
-*@param  t = temporary variable
+*@param  temppos = temporary variable
 *
 *
 */
-var DepID = 0;
+
 
 async function getLocation() {
 
 
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-
+     var temppos = navigator.geolocation.getCurrentPosition(showPosition);
+     
+return temppos;
 
 
   } else {
@@ -48,10 +77,11 @@ function showPosition(position) {
   var actpos = [];
   actpos.push(position.coords.longitude);
   actpos.push(position.coords.latitude);
-
+  console.log(actpos);
+main_indexA(actpos)
   //console.log("Darstellen");
-  L.marker(change(actpos)).addTo(map).bindPopup("User Position")
-  getbusstops(actpos);
+  //L.marker(change(actpos)).addTo(map).bindPopup("User Position")
+ // getbusstops(actpos);
 
 
 
@@ -364,7 +394,8 @@ async function add_selected_stop_as_taken(dep_id, stop_id){
     var object = {
 departure_id: dep_id,
 stop_id:stop_id,
-user: user[0].userID
+user: user[0].userID,
+infection_risk:"No"
 
     }
     
@@ -402,7 +433,7 @@ async function create_table_departures(stop, id) {
 
 
   
-  console.log(stop);
+  //console.log(stop);
     for (var i = 0; i < stop[0].departures.length; i++) {
 
       
@@ -463,44 +494,6 @@ function update_dep_table(stop,i,id,table){
 
 
 
-function convert_time(time) {
-  var str = time;
-
-  var time_pos_begin = str.indexOf("T");
-  var time_short = str.slice(time_pos_begin + 1) //+2, um : zu entfernen
-
-  /*var addx = time_short.indexOf("+")+1;
-  console.log("addx"+addx)
-  var add_ten = time_short.charAt(addx);
-  console.log("addten"+add_ten)
-
-
-  var add_o = time_short.indexOf("+")+2
-  var add_one = time_short.charAt(add_o)
-  console.log("adone"+add_one)
-
-
-  var add_minutes_ten = time_short.charAt(time_short.indexOf(":"+1))
-  var add_minutes_one = time_short.charAt(time_short.indexOf(":"+2))
-  var hours = add_ten*10+add_one;
-  var minutes = add_minutes_ten*10+add_minutes_one
-console.log("addiert?"+Number(time_short.charAt((time_short.indexOf(":")-1)))+hours);
-console.log(hours);
-hours = hours + parseInt(time_short.charAt((time_short.indexOf(":")-1)))
-minutes = minutes + parseInt(time_short.charAt((time_short.indexOf(":")+2)))
-
-  console.log(time_short)
-  console.log(hours)
-  console.log(minutes)*/
-  //time_short.replace(time_short.indexOf(":")-1,hours);
-  var test = time_short.charAt(1);
-  //console.log("test:  " + test);
-  //console.log(time_short)
-  time_short = time_short.replace(parseInt(time_short.charAt(1)) + 2, 1)
-  return time_short;
-
-
-}
 
 
 
@@ -510,18 +503,9 @@ minutes = minutes + parseInt(time_short.charAt((time_short.indexOf(":")+2)))
 
 
 
-/**
-  *@desc function to clean rows of all tables
-  */
-
-function clean_tables() {
-
- // console.log("cleantables");
-  //$(".rt1").html(" ");
-  $(".rt2").html(" ");
 
 
-}
+
 
 
 

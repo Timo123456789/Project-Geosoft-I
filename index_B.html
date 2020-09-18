@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
   <link rel="stylesheet" href="../leaflet/leaflet.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="public\style.css">
+  <link rel="stylesheet" href="public\style.css"> <!-- href="src/style.css" -->
 </head>
 
 <body>
@@ -31,27 +31,26 @@
       <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="nav navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="C:\Users\Judith\Documents\GitHub\Project-Geosoft-I\index_Login.html">Login Page</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="C:\Users\Judith\Documents\GitHub\Project-Geosoft-I\index_A.html">Editor Page</a>
+            <a class="nav-link" href="/index_A">Editor Page</a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="C:\Users\Judith\Documents\GitHub\Project-Geosoft-I\index_B.html">Screen Page</a>
+            <a class="nav-link" href="/index_B">Screen Page</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="C:\Users\Judith\Documents\GitHub\Project-Geosoft-I\index_Doc.html">Doctors Page</a>
+            <a class="nav-link" href="/index_Doc.html">Doctors Page</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="C:\Users\Judith\Documents\GitHub\Project-Geosoft-I\index_Test.html">Test Page</a>
+            <a class="nav-link" href="/index_Test.html">Test Page</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href=" ">Logout</a> <!-- <a class="nav-link" onclick="delete_logged_User()">Logout</a> -->
+            <a class="nav-link" onclick="delete_logged_User()">Logout</a>
           </li>
         </ul>
       </div>
   </nav>
   <!-- /navbar -->
+  
+  <!-- <a class="nav-link" href="/index_B">Screen Page<span class="sr-only">(current)</span></a> -->
 
   <div class="Introduction">
     <div class="jumbotron">
@@ -104,19 +103,20 @@
             <table class="table table-striped table-sm" id = "Table2">
               <thead>
                 <tr>
+                  <th>Name</th>
+                  <th>type</th>
+                  <th>Stop ID</th>
                   <th>direction</th>
                   <th>line number</th>
-                  <th>arrival time</th>
+                  <th>Time</th>
                   <th>Departure ID</th>
-                  <th>Selected Stop ID</th>
+                  <th>Infection Risk</th>
                 </tr>
               </thead>
               <tbody>
               </tbody>
             </table>
           </div>
-
-          <br>
 
           <form id="radiobuttons_departures"> </form>
           <button type="button" onclick="check_departure_radios()" class="btn btn-default">add selected Departure as taken</button>

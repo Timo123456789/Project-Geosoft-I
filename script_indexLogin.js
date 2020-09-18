@@ -103,7 +103,7 @@ function required(inputtx) {
 
 
 function login() {
-  console.log("Button funktioniert");
+ // console.log("Button funktioniert");
 
   var username_textfield = document.getElementById("Username").value;
   var password_textfield = document.getElementById("Password").value;
@@ -162,7 +162,7 @@ console.log(result);
           res(result);
           document.getElementById("Username").value = "";
           document.getElementById("Password").value = "";
-          window.location.href = 'http://localhost:3000/index_A';
+          window.location.href = 'http://localhost:3000/index_B';
         },
         error: function (err) { console.log(err) }
       });
