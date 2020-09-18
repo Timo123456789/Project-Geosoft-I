@@ -1,6 +1,6 @@
 const express = require('express');
 const mongodb = require('mongodb');
-const port=3000;
+const port = 3000;
 
 const app = express();
 
@@ -18,11 +18,11 @@ async function connectMongoDB() {
         //connect do database "MainDB"
         app.locals.db = await app.locals.dbConnection.db("MainDB");
         console.log("Using db: " + app.locals.db.databaseName);
-       
-      app.locals.db.collection("User").drop( (err,delOK) => {if(delOK) console.log("collection User cleared")} );
-      app.locals.db.collection("all_busstops_and_departures").drop( (err,delOK) => {if(delOK) console.log("collection all_busstops_and_departures cleared")} );
-       app.locals.db.collection("logged_User").drop( (err,delOK) => {if(delOK) console.log("collection logged_User cleared")} );
-       app.locals.db.collection("selected_departures").drop( (err,delOK) => {if(delOK) console.log("collection selected departures cleared")} );
+
+        app.locals.db.collection("User").drop((err, delOK) => { if (delOK) console.log("collection User cleared") });
+        app.locals.db.collection("all_busstops_and_departures").drop((err, delOK) => { if (delOK) console.log("collection all_busstops_and_departures cleared") });
+        app.locals.db.collection("logged_User").drop((err, delOK) => { if (delOK) console.log("collection logged_User cleared") });
+        app.locals.db.collection("selected_departures").drop((err, delOK) => { if (delOK) console.log("collection selected departures cleared") });
 
     }
     catch (error) {
@@ -53,7 +53,7 @@ app.use('/leaflet-heat', express.static(__dirname + '/node_modules/leaflet.heat/
 app.use('/leaflet-draw', express.static(__dirname + '/node_modules/leaflet-draw/dist'));
 
 //Send index.html on request to "/"
-app.get('/', (req,res) => {
+app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index_Login.html')
 })
 
@@ -61,27 +61,27 @@ app.get('/', (req,res) => {
 
 
 //Send index_Doc.html on request to "/index_Doc"
-app.get('/index_Doc', (req,res) => {
+app.get('/index_Doc', (req, res) => {
     res.sendFile(__dirname + '/index_Doc.html')
 })
 
 //Send index_Login.html on request to "/index_Login"
-app.get('/index_Login', (req,res) => {
+app.get('/index_Login', (req, res) => {
     res.sendFile(__dirname + '/index_Login.html')
 })
 
 //Send index_Login.html on request to "/index_A"
-app.get('/index_A', (req,res) => {
+app.get('/index_A', (req, res) => {
     res.sendFile(__dirname + '/index_A.html')
 })
 
 //Send index_Login.html on request to "/index_B"
-app.get('/index_B', (req,res) => {
+app.get('/index_B', (req, res) => {
     res.sendFile(__dirname + '/index_B.html')
 })
 
 //Send index_Login.html on request to "/index_B"
-app.get('/test', (req,res) => {
+app.get('/test', (req, res) => {
     res.sendFile(__dirname + '/index_Test.html')
 })
 
@@ -92,7 +92,7 @@ app.listen(port,
     () => console.log(`HTML Site listening at http://localhost:${port}`)
 )
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////USER Functions////////////////////////////////////////////////////////
@@ -156,7 +156,7 @@ app.post("/logged_User", (req, res) => {
 
 app.get("/User", (req, res) => {
     if (req.query.Username != undefined && req.query.Password != undefined) {
-        
+
         app.locals.db.collection('User').find(req.query).toArray((error, result) => {
             if (error) {
                 console.dir(error);
@@ -165,7 +165,7 @@ app.get("/User", (req, res) => {
         });
     }
     else {
-        
+
         app.locals.db.collection('User').find().toArray((error, result) => {
             if (error) {
                 console.dir(error);
@@ -187,8 +187,8 @@ app.get("/User", (req, res) => {
 */
 
 app.get("/search_by_UserID", (req, res) => {
-    if (req.query.UserID != undefined) {  
-        app.locals.db.collection('User').find({userID: req.query.UserID}).toArray((error, result) => {
+    if (req.query.UserID != undefined) {
+        app.locals.db.collection('User').find({ userID: req.query.UserID }).toArray((error, result) => {
             if (error) {
                 console.dir(error);
             }
@@ -203,13 +203,13 @@ app.get("/search_by_UserID", (req, res) => {
 *
 */
 
-app.get("/logged_User", (req, res) => {   
-        app.locals.db.collection('logged_User').find().toArray((error, result) => {
-            if (error) {
-                console.dir(error);
-            }
-            res.json(result);
-        });
+app.get("/logged_User", (req, res) => {
+    app.locals.db.collection('logged_User').find().toArray((error, result) => {
+        if (error) {
+            console.dir(error);
+        }
+        res.json(result);
+    });
 });
 
 
@@ -218,7 +218,7 @@ app.get("/logged_User", (req, res) => {
 *
 */
 
-app.delete("/logged_User", (req, res) => { 
+app.delete("/logged_User", (req, res) => {
     app.locals.db.collection('logged_User').deleteOne(req.body, (error, result) => {
         if (error) {
             console.dir(error);
@@ -233,12 +233,12 @@ app.delete("/logged_User", (req, res) => {
 *
 */
 app.get("/User", (req, res) => {
-        app.locals.db.collection('User').find().toArray((error, result) => {
-            if (error) {
-                console.dir(error);
-            }
-            res.json(result);
-        });
+    app.locals.db.collection('User').find().toArray((error, result) => {
+        if (error) {
+            console.dir(error);
+        }
+        res.json(result);
+    });
 });
 
 
@@ -286,7 +286,7 @@ app.post("/selected_departures", (req, res) => {
 */
 app.get("/selected_departures", (req, res) => {
     if (req.query != undefined) {
-        app.locals.db.collection('selected_departures').find({user:req.query.id}).toArray((error, result) => {
+        app.locals.db.collection('selected_departures').find({ user: req.query.id }).toArray((error, result) => {
             if (error) {
                 console.dir(error);
             }
@@ -320,24 +320,26 @@ app.get("/selected_departures", (req, res) => {
 */
 
 app.put("/selected_departures", (req, res) => {
-    req.query={
-        Stopid:req.body.StopID,
-        DepID:req.body.DepID
+    req.query = {
+        Stopid: req.body.StopID,
+        DepID: req.body.DepID
     }
-    var newvalues ={ $set:{
-        infection_risk:req.body.infection_risk,
-        begin_time:req.body.begin_time,
-        end_time:req.body.end_time}
+    var newvalues = {
+        $set: {
+            infection_risk: req.body.infection_risk,
+            begin_time: req.body.begin_time,
+            end_time: req.body.end_time
+        }
 
     }
-    app.locals.db.collection('selected_departures').updateMany({departure_id: req.query.DepID, stop_id:req.query.Stopid}, newvalues, function(err, res) {
+    app.locals.db.collection('selected_departures').updateMany({ departure_id: req.query.DepID, stop_id: req.query.Stopid }, newvalues, function (err, res) {
         if (err) throw err;
         console.log("all selected Departures Updatet");
-       
-      });
+
+    });
 });
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////All Busstops and Departures///////////////////////////////////////////
@@ -375,7 +377,7 @@ app.post("/all_busstops_and_departures", (req, res) => {
 */
 app.get("/all_busstops_and_departures", (req, res) => {
     if (req.query != undefined) {
-        app.locals.db.collection('all_busstops_and_departures').find({id:req.query.id}).toArray((error, result) => {
+        app.locals.db.collection('all_busstops_and_departures').find({ id: req.query.id }).toArray((error, result) => {
             if (error) {
                 console.dir(error);
             }
@@ -403,10 +405,10 @@ app.get("/is_empty_all_busstops_and_departures", (req, res) => {
         if (!err && count === 0) {
             result = true;
         }
-        else{
+        else {
             result = false;
         }
-       return res.json(result);
+        return res.json(result);
     });
 
 });

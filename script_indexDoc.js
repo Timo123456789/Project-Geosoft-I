@@ -23,11 +23,11 @@ async function main_indexDocSite() {
 
 
 
-async function create_markers(data){
+async function create_markers(data) {
   console.log(data);
-  for (var i = 0; i<data.length;i++){
-    var stops_from_iten_User =   await get_stops_by_UserID(data[i].userID);
-    console.log("stop_data von "+i+"ten Nutzern");
+  for (var i = 0; i < data.length; i++) {
+    var stops_from_iten_User = await get_stops_by_UserID(data[i].userID);
+    console.log("stop_data von " + i + "ten Nutzern");
     console.log(stops_from_iten_User);
     set_Markers_at_stop_positions(stops_from_iten_User)
   }
@@ -123,7 +123,7 @@ async function create_table_with_taken_departures(Trav_ID) {
 
 
   var Trav = await get_User_by_TravID(Trav_ID)
- // console.log("TravellerData");
+  // console.log("TravellerData");
   //console.log(Trav);
   var user_stop_data = await get_stops_by_UserID(Trav[0].userID);
 
@@ -265,22 +265,22 @@ async function add_every_status_to_infected(Dep_Obj) {
   var begin_time = document.getElementById("Begin_time").value;
   var end_time = document.getElementById("End_time").value;
   var Update_Object = {
-   // UserID: Dep_Obj.Trav_Id, // Jedes Element mit der gleichen Stop ID und der gleichen Dep ID muss geupdatet werden damit alle Nutzer benachrichigt werden
+    // UserID: Dep_Obj.Trav_Id, // Jedes Element mit der gleichen Stop ID und der gleichen Dep ID muss geupdatet werden damit alle Nutzer benachrichigt werden
     DepID: Dep_Obj.dep_id,
     StopID: Dep_Obj.stop_id,
     infection_risk: "yes",
     begin_time: begin_time,
     end_time: end_time
   }
-console.log(Update_Object);
+  console.log(Update_Object);
   $.ajax({
     url: "/selected_departures",
     method: "PUT",
     data: Update_Object,
     success: function (result) {
-       console.log(" res(result");
-       console.log( result);
-      
+      console.log(" res(result");
+      console.log(result);
+
       return result;
 
 
@@ -293,20 +293,20 @@ console.log(Update_Object);
 }
 
 
-async function   add_every_status_of_all_departures_to_infected(Trav_ID){
+async function add_every_status_of_all_departures_to_infected(Trav_ID) {
   var Trav = await get_User_by_TravID(Trav_ID)
   // console.log("TravellerData");
-   //console.log(Trav);
-   var user_stop_data = await get_stops_by_UserID(Trav[0].userID);
-   console.log(user_stop_data);
-   for(var i=0; i<user_stop_data.length;i++){
-    var infec_dep={
+  //console.log(Trav);
+  var user_stop_data = await get_stops_by_UserID(Trav[0].userID);
+  console.log(user_stop_data);
+  for (var i = 0; i < user_stop_data.length; i++) {
+    var infec_dep = {
       stop_id: user_stop_data[i].stop_id,
       dep_id: user_stop_data[i].departure_id,
     }
     add_every_status_to_infected(infec_dep)
-   }
-  
+  }
+
 }
 
 

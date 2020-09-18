@@ -108,7 +108,7 @@ function required(inputtx) {
     return false;
   }
   return true;
-} 
+}
 
 
 
@@ -167,112 +167,112 @@ function login() {
 */
 function login_LoginHTML() {
   // console.log("Button funktioniert");
- 
-   var username_textfield = document.getElementById("Username").value;
-   var password_textfield = document.getElementById("Password").value;
- 
-   var temp = {
-     Username: username_textfield,
-     Password: password_textfield
-   };
- 
-   return new Promise(function (res, rej) {
-     $.ajax({
-       url: "/User",
-       method: "GET",
-       data: temp,
-       success: function (result) {
-         res(result);
-         if (result[0] != undefined) {
-           if (result[0].role == "traveller") {
-             save_User_trav(result);      
-           } else if (result[0].role == "doctor") {
-             save_User_Doc(result);
-           }
-         }
-         else {
+
+  var username_textfield = document.getElementById("Username").value;
+  var password_textfield = document.getElementById("Password").value;
+
+  var temp = {
+    Username: username_textfield,
+    Password: password_textfield
+  };
+
+  return new Promise(function (res, rej) {
+    $.ajax({
+      url: "/User",
+      method: "GET",
+      data: temp,
+      success: function (result) {
+        res(result);
+        if (result[0] != undefined) {
+          if (result[0].role == "traveller") {
+            save_User_trav(result);
+          } else if (result[0].role == "doctor") {
+            save_User_Doc(result);
+          }
+        }
+        else {
           // window.alert("Please type something in Username and Password Textfield or check password and username!");
-         }
-       },
-       error: function (err) { console.log(err) }
-     });
-   })
- 
- }
+        }
+      },
+      error: function (err) { console.log(err) }
+    });
+  })
+
+}
 
 
- /**
+/**
 *@desc saves User as Traveller at Collection "logged_User", connection to next HTML Site
 *@param  loggedUser = Object with Parameters
 *
 *
 */
-function save_User_trav(loggedUser){
-var result = loggedUser[0];
-    return new Promise(function (res, rej) {
-      $.ajax({
-        url: "/logged_User",
-        method: "POST",
-        data: result,
-        success: function (result) {
-          res(result);
-          document.getElementById("Username").value = "";
-          document.getElementById("Password").value = "";
-          window.location.href = 'http://localhost:3000/index_B';  //Connection to Index_b.html
-        },
-        error: function (err) { console.log(err) }
-      });
-    })
-  } 
+function save_User_trav(loggedUser) {
+  var result = loggedUser[0];
+  return new Promise(function (res, rej) {
+    $.ajax({
+      url: "/logged_User",
+      method: "POST",
+      data: result,
+      success: function (result) {
+        res(result);
+        document.getElementById("Username").value = "";
+        document.getElementById("Password").value = "";
+        window.location.href = 'http://localhost:3000/index_B';  //Connection to Index_b.html
+      },
+      error: function (err) { console.log(err) }
+    });
+  })
+}
 
 
-   /**
+/**
 *@desc saves User as Doctor at Collection "logged_User", connection to next HTML Site
 *@param  loggedUser = Object with Parameters
 *
 *
 */
-  function save_User_Doc(loggedUser){
-    var result = loggedUser[0];
-        return new Promise(function (res, rej) {
-          $.ajax({
-            url: "/logged_User",
-            method: "POST",
-            data: result,
-            success: function (result) {
-              res(result);
-              document.getElementById("Username").value = "";
-              document.getElementById("Password").value = "";
-              window.location.href = 'http://localhost:3000/index_doc'; //Connection to index_doc.html
-            },
-            error: function (err) { console.log(err) }
-          });
-        })
-      } 
+function save_User_Doc(loggedUser) {
+  var result = loggedUser[0];
+  return new Promise(function (res, rej) {
+    $.ajax({
+      url: "/logged_User",
+      method: "POST",
+      data: result,
+      success: function (result) {
+        res(result);
+        document.getElementById("Username").value = "";
+        document.getElementById("Password").value = "";
+        window.location.href = 'http://localhost:3000/index_doc'; //Connection to index_doc.html
+      },
+      error: function (err) { console.log(err) }
+    });
+  })
+}
 
 
 
 /**
 *@desc delete all Values in Collection "logged_User"
 */
- function delete_logged_User(){
+function delete_logged_User() {
 
   return new Promise(function (res, rej) {
     $.ajax({
       url: "/logged_User",
       method: "DELETE",
-      
+
       success: function (result) {
         res(result);
-        
+
       },
       error: function (err) { console.log(err) }
     });
   })
-} 
+}
 
 
- 
+
 
 
 

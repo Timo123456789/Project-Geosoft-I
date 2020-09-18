@@ -10,121 +10,121 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 async function check_logged_User() {
-    var logged = await get_logged_User();
-    //console.log(logged);
-    if (logged[0] != undefined) {
-      window.alert("Login Sucess");
-  
-  
-  
-    }
-    else {
-  
-      window.alert("Login failed");
-      window.location.href = 'http://localhost:3000/index_Login';
-    }
-  
+  var logged = await get_logged_User();
+  //console.log(logged);
+  if (logged[0] != undefined) {
+    window.alert("Login Sucess");
+
+
+
+  }
+  else {
+
+    window.alert("Login failed");
+    window.location.href = 'http://localhost:3000/index_Login';
   }
 
+}
 
 
-  async function get_logged_User() {
-  
-  
-    return new Promise(function (res, rej) {
-      $.ajax({
-        url: "/logged_User",
-        method: "GET",
-  
-        success: function (result) {
-  
-          res(result);
-  
-        },
-        error: function (err) { console.log(err) }
-      });
-    })
-  
-  }
-  
-  
-  function delete_logged_User() {
-  
-    return new Promise(function (res, rej) {
-      $.ajax({
-        url: "/logged_User",
-        method: "DELETE",
-  
-        success: function (result) {
-          res(result);
-          window.location.href = 'http://localhost:3000/index_Login';
-  
-        },
-        error: function (err) { console.log(err) }
-      });
-    })
-  }
+
+async function get_logged_User() {
 
 
-  
-async function get_stops_by_UserID(logged_User){
+  return new Promise(function (res, rej) {
+    $.ajax({
+      url: "/logged_User",
+      method: "GET",
+
+      success: function (result) {
+
+        res(result);
+
+      },
+      error: function (err) { console.log(err) }
+    });
+  })
+
+}
+
+
+function delete_logged_User() {
+
+  return new Promise(function (res, rej) {
+    $.ajax({
+      url: "/logged_User",
+      method: "DELETE",
+
+      success: function (result) {
+        res(result);
+        window.location.href = 'http://localhost:3000/index_Login';
+
+      },
+      error: function (err) { console.log(err) }
+    });
+  })
+}
+
+
+
+async function get_stops_by_UserID(logged_User) {
   console.log("logged User");
   console.log(logged_User);
-  var idobject ={
-      id: logged_User
+  var idobject = {
+    id: logged_User
   }
   console.log("id_object");
   console.log(idobject);
   return new Promise(function (res, rej) {
-      $.ajax({
-        url: "/selected_departures",
-        method: "GET",
-        data: idobject,
-        success: function (result) {
-         return res(result);
-         
-  
-  
-        },
-        error: function (err) { console.log(err) }
-      });
-    })
+    $.ajax({
+      url: "/selected_departures",
+      method: "GET",
+      data: idobject,
+      success: function (result) {
+        return res(result);
+
+
+
+      },
+      error: function (err) { console.log(err) }
+    });
+  })
 
 }
 
 
 
 
-async function get_User_by_TravID(TravID){
+async function get_User_by_TravID(TravID) {
   console.log("TravID");
   console.log(TravID);
-  var idobject ={
-      UserID: TravID
+  var idobject = {
+    UserID: TravID
 
   }
   console.log("id_object");
   console.log(idobject);
   return new Promise(function (res, rej) {
-      $.ajax({
-        url: "/search_by_UserID",
-        method: "GET",
-        data: idobject,
-        success: function (result) {
-         return res(result);
-         
-  
-  
-        },
-        error: function (err) { console.log(err) }
-      });
-    })
+    $.ajax({
+      url: "/search_by_UserID",
+      method: "GET",
+      data: idobject,
+      success: function (result) {
+        return res(result);
+
+
+
+      },
+      error: function (err) { console.log(err) }
+    });
+  })
 
 
 
 }
 
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////DB Funktionen/////////////////////////////////////////////////////////
@@ -135,25 +135,25 @@ async function get_User_by_TravID(TravID){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-async function set_Markers_at_stop_positions(stops_from_User){
-  for (var i = 0; i<stops_from_User.length;i++){
-    var stop_data =   await get_stop_data(stops_from_User[i].stop_id);
+async function set_Markers_at_stop_positions(stops_from_User) {
+  for (var i = 0; i < stops_from_User.length; i++) {
+    var stop_data = await get_stop_data(stops_from_User[i].stop_id);
     console.log("stop_data");
     console.log(stop_data);
     console.log(stops_from_User[i].infection_risk);
-  var stop_coordinates = get_stop_coordinates(stop_data);
-  if(stops_from_User[i].infection_risk == "yes"){
-      L.marker(stop_coordinates,{icon: redIcon}).addTo(map).bindPopup("Name: "+stop_data[0].name + "<br>" +"Type: "+stop_data[0].type + "<br>" +"ID: " + stop_data[0].id);
-  }
-      else{
-          L.marker(stop_coordinates,{icon: greenIcon}).addTo(map).bindPopup("Name: "+stop_data[0].name + "<br>" +"Type: "+stop_data[0].type + "<br>" +"ID: " + stop_data[0].id);
-      }
+    var stop_coordinates = get_stop_coordinates(stop_data);
+    if (stops_from_User[i].infection_risk == "yes") {
+      L.marker(stop_coordinates, { icon: redIcon }).addTo(map).bindPopup("Name: " + stop_data[0].name + "<br>" + "Type: " + stop_data[0].type + "<br>" + "ID: " + stop_data[0].id);
+    }
+    else {
+      L.marker(stop_coordinates, { icon: greenIcon }).addTo(map).bindPopup("Name: " + stop_data[0].name + "<br>" + "Type: " + stop_data[0].type + "<br>" + "ID: " + stop_data[0].id);
+    }
   }
 }
 
 function get_one_stop_with_ID(idobject) {
 
- 
+
   return new Promise(function (res, rej) {
     $.ajax({
       url: "/all_busstops_and_departures",
@@ -161,7 +161,7 @@ function get_one_stop_with_ID(idobject) {
       data: idobject,
       success: function (result) {
         res(result);
-       
+
 
 
       },
@@ -171,16 +171,16 @@ function get_one_stop_with_ID(idobject) {
 
 }
 
-async function Coll_all_busstops_and_Departures_isEmpty(){
-//console.log("testhead")
- return $.ajax({
+async function Coll_all_busstops_and_Departures_isEmpty() {
+  //console.log("testhead")
+  return $.ajax({
     url: "/is_empty_all_busstops_and_departures",
     method: "GET",
     success: function (result) {
-     // console.log(" res(result");
-     // console.log( result);
+      // console.log(" res(result");
+      // console.log( result);
       return result;
-     
+
 
 
     },
@@ -190,7 +190,7 @@ async function Coll_all_busstops_and_Departures_isEmpty(){
 }
 
 
- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////alles weitere/////////////////////////////////////////////////////////
@@ -204,7 +204,7 @@ async function Coll_all_busstops_and_Departures_isEmpty(){
   *@desc change values of an array
   */
 
- function change(array) {
+function change(array) {
   var temp;
   temp = array[0];
   array[0] = array[1];
@@ -217,8 +217,8 @@ function convert_time(time) {
 
   var time_pos_begin = str.indexOf("T");
   var time_pos_end = str.lastIndexOf(":");
-  var time_short = str.slice(time_pos_begin+1,time_pos_end-3 ) //+2, um : zu entfernen
-  
+  var time_short = str.slice(time_pos_begin + 1, time_pos_end - 3) //+2, um : zu entfernen
+
 
   return time_short;
 
@@ -232,31 +232,31 @@ function convert_time(time) {
 function clean_tables() {
 
   // console.log("cleantables");
-   //$(".rt1").html(" ");
-   $(".rt2").html(" ");
- 
- 
- }
+  //$(".rt1").html(" ");
+  $(".rt2").html(" ");
+
+
+}
 
 
 
- function get_stop_coordinates(stop_data){
-  var coor = [stop_data[0].lat,stop_data[0].lng];
+function get_stop_coordinates(stop_data) {
+  var coor = [stop_data[0].lat, stop_data[0].lng];
   return coor;
-  
-  }
+
+}
 
 
-  
-async function get_stop_data(id){
+
+async function get_stop_data(id) {
   var idobject = {
-      id: id,
-    }
+    id: id,
+  }
   var stop = await get_one_stop_with_ID(idobject);
   //console.log(" one stop");
   return stop;
 }
- 
+
 var greenIcon = new L.Icon({
   iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
