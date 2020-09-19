@@ -24,6 +24,7 @@
     "leaflet": "^1.6.0",
     "leaflet-draw": "^1.0.4",
     "leaflet.heat": "^0.2.0",
-    "mongodb": "^3.5.8"
+    "mongodb": "^3.5.8",
+    "qunit": "^2.11.2"
   }
 }
