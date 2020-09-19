@@ -1,6 +1,6 @@
 /*
 * Projektaufgabe, Abgabeterim: 21.09.2020, Geosoft 1, SoSe 2020
-* @author {Timo Lietmeyer}   matr.Nr.: {Matrikelnummer}
+* @author {Timo Lietmeyer}   matr.Nr.: {459169}
 * @author {Judith Bresser}   matr.Nr.: {459956}
 */
 
@@ -170,7 +170,8 @@ app.post("/logged_User", (req, res) => {
 app.get("/User", (req, res) => {
     if (req.query.Username != undefined && req.query.Password != undefined) {
 
-        app.locals.db.collection('User').find(req.query).toArray((error, result) => {
+        app.locals.db.collection('User').find({Username:req.query.Username, Password:req.query.Password}).toArray((error, result) => {
+            console.log("gefunden");
             if (error) {
                 console.dir(error);
             }
