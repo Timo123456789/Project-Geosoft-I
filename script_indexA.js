@@ -1,4 +1,16 @@
+/*
+* Projektaufgabe, Abgabeterim: 21.09.2020, Geosoft 1, SoSe 2020
+* @author {Timo Lietmeyer}   matr.Nr.: {459169}
+* @author {Judith Bresser}   matr.Nr.: {459956}
+*/
 
+//**various jshint configs**
+// jshint esversion: 8
+// jshint browser: true
+// jshint node: true
+// jshint -W117
+// jshint -W083
+"use strict";
 
 /**
 *@desc  creates Leafleat Map
@@ -27,7 +39,7 @@ main_indexA() //function to run main Method
 
 
 /**
-*@desc Main Method, add Marker at user position and start getbusstop Function 
+*@desc Main Method, add Marker at user position and start getbusstop Function
 *@param  actpos= Coordinates of User Position in Array
 *
 *
@@ -183,9 +195,9 @@ async function create_Table_Busstops(busstops) {
   }
 
 
-  
+
     create_Collection_of_all_stops_and_departures(busstops) //Function to create Collection with busstop data
-  
+
 
   create_list_of_ratio_buttons(busstops); //create List of ratio buttons from busstop data
 
@@ -229,7 +241,7 @@ function create_Collection_of_all_stops_and_departures(busstops) {
 
 /**
 *@desc  creates List of ratio buttons with busstops data
-*@param   busstops = all data from all busstops 
+*@param   busstops = all data from all busstops
 *
 *
 *
@@ -439,6 +451,3 @@ function update_dep_table(stop, i, id, table) {
 
   stopID.setAttribute("class", "t2");//insert cell at the row variable with the arrival time
 }
-
-
-

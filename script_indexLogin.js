@@ -1,3 +1,17 @@
+/*
+* Projektaufgabe, Abgabeterim: 21.09.2020, Geosoft 1, SoSe 2020
+* @author {Timo Lietmeyer}   matr.Nr.: {459169}
+* @author {Judith Bresser}   matr.Nr.: {459956}
+*/
+
+//**various jshint configs**
+// jshint esversion: 8
+// jshint browser: true
+// jshint node: true
+// jshint -W117
+// jshint -W083
+"use strict";
+
 var IDDocs = 1;
 var IDTravs = 1;
 
@@ -96,7 +110,7 @@ function createUserTrav() {
 /**
 *@desc function to check a textfield for strings
 *@param  inputtx = String of Textfield
-*@source https://www.w3resource.com/javascript/form/non-empty-field.php //minor changes 
+*@source https://www.w3resource.com/javascript/form/non-empty-field.php //minor changes
 *
 *
 */
@@ -118,7 +132,7 @@ function required(inputtx) {
 *@desc logged User in Server,check if User exists and  add Data from Logged User in Collection "Logged_User"
 *@param  username_textfield = Value from Username_textfield
 *@param  password_textfield = Value from password_textfield
-*@param  temp = Object with values from textfields for Get Request at Server at Search 
+*@param  temp = Object with values from textfields for Get Request at Server at Search
 *
 *
 */
@@ -161,7 +175,7 @@ function login() {
 *@desc logged User in Server,check if User exists and  add Data from Logged User in Collection "Logged_User"
 *@param  username_textfield = Value from Username_textfield
 *@param  password_textfield = Value from password_textfield
-*@param  temp = Object with values from textfields for Get Request at Server at Search 
+*@param  temp = Object with values from textfields for Get Request at Server at Search
 *
 *
 */
@@ -270,9 +284,3 @@ function delete_logged_User() {
     });
   })
 }
-
-
-
-
-
-

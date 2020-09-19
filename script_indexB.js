@@ -1,3 +1,16 @@
+/*
+* Projektaufgabe, Abgabeterim: 21.09.2020, Geosoft 1, SoSe 2020
+* @author {Timo Lietmeyer}   matr.Nr.: {459169}
+* @author {Judith Bresser}   matr.Nr.: {459956}
+*/
+
+//**various jshint configs**
+// jshint esversion: 8
+// jshint browser: true
+// jshint node: true
+// jshint -W117
+// jshint -W083
+"use strict";
 
 /**
 *@desc  creates Leafleat Map
@@ -16,7 +29,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-check_logged_User()  //function to check if user is logged  
+check_logged_User()  //function to check if user is logged
 main_indexB()   // run main method
 var infected = false;
 
@@ -99,53 +112,35 @@ function make_row(data, table, stops, i) {
 
   var line1 = row.insertCell() //Name of Stop
   line1.innerHTML = data.name;
-  line1.setAttribute("class", "t1"); 
+  line1.setAttribute("class", "t1");
 
   var line2 = row.insertCell(); //Type of Stop
-  line2.innerHTML = data.type; 
+  line2.innerHTML = data.type;
   line2.setAttribute("class", "t1");
 
   var line3 = row.insertCell(); //ID of Stop
-  line3.innerHTML = data.id; 
+  line3.innerHTML = data.id;
   line3.setAttribute("class", "t1");
 
   var line4 = row.insertCell() //Direction
   line4.innerHTML = data.departures[stops[i].departure_id].transport.headsign;
-  line4.setAttribute("class", "t1"); 
+  line4.setAttribute("class", "t1");
 
   var line5 = row.insertCell(); //Line Number
-  line5.innerHTML = data.departures[stops[i].departure_id].transport.name; 
+  line5.innerHTML = data.departures[stops[i].departure_id].transport.name;
   line5.setAttribute("class", "t1");
 
 
   var line6 = row.insertCell(); //Time
-  line6.innerHTML = convert_time(data.departures[stops[i].departure_id].time); 
+  line6.innerHTML = convert_time(data.departures[stops[i].departure_id].time);
   line6.setAttribute("class", "t1");
 
   var line7 = row.insertCell(); //Departure ID
-  line7.innerHTML = stops[i].departure_id; 
+  line7.innerHTML = stops[i].departure_id;
   line7.setAttribute("class", "t1");
 
   var line8 = row.insertCell(); //Infection Risk
-  line8.innerHTML = stops[i].infection_risk; 
+  line8.innerHTML = stops[i].infection_risk;
   line8.setAttribute("class", "t1");
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
