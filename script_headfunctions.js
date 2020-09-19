@@ -29,7 +29,7 @@
 async function check_logged_User() {
   var logged = await get_logged_User();
   if (logged[0] != undefined) {
-   // window.alert("Login Sucess");
+    // window.alert("Login Sucess");
   }
   else {
     window.alert("Login failed");
@@ -203,8 +203,8 @@ async function Coll_all_busstops_and_Departures_isEmpty() {
 
 
 /**
-  *@desc change values of an array
-  */
+*@desc change values of an array
+*/
 function change(array) {
   var temp;
   temp = array[0];
@@ -225,8 +225,8 @@ function convert_time(time) {
 }
 
 /**
-  *@desc function to clean rows of all tables
-  */
+*@desc function to clean rows of all tables
+*/
 function clean_tables() {
   $(".rt2").html(" ");
 }

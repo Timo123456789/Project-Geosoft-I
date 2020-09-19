@@ -171,7 +171,7 @@ function login() {
 
 
 /**
- * No Window Alerts Version
+* No Window Alerts Version
 *@desc logged User in Server,check if User exists and  add Data from Logged User in Collection "Logged_User"
 *@param  username_textfield = Value from Username_textfield
 *@param  password_textfield = Value from password_textfield
