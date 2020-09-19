@@ -1,3 +1,17 @@
+/*
+* Projektaufgabe, Abgabeterim: 21.09.2020, Geosoft 1, SoSe 2020
+* @author {Timo Lietmeyer}   matr.Nr.: {Matrikelnummer}
+* @author {Judith Bresser}   matr.Nr.: {459956}
+*/
+
+//**various jshint configs**
+// jshint esversion: 8
+// jshint browser: true
+// jshint node: true
+// jshint -W117
+// jshint -W083
+"use strict";
+
 const express = require('express');
 const mongodb = require('mongodb');
 const port = 3000;
@@ -21,7 +35,7 @@ async function connectMongoDB() {
 
         app.locals.db.collection("User").drop((err, delOK) => { if (delOK) console.log("collection User cleared") });
         app.locals.db.collection("all_busstops_and_departures").drop((err, delOK) => { if (delOK) console.log("collection all_busstops_and_departures cleared") });
-        // app.locals.db.collection("logged_User").drop((err, delOK) => { if (delOK) console.log("collection logged_User cleared") });
+        app.locals.db.collection("logged_User").drop((err, delOK) => { if (delOK) console.log("collection logged_User cleared") });
         app.locals.db.collection("selected_departures").drop((err, delOK) => { if (delOK) console.log("collection selected departures cleared") });
 
     }
@@ -263,12 +277,12 @@ app.get("/User", (req, res) => {
 *
 */
 app.post("/selected_departures", (req, res) => {
-   
+
     app.locals.db.collection('selected_departures')
     .find({ departure_id: req.body.departure_id, stop_id: req.body.stop_id, user: req.body.user }).toArray((error, result) => {
         if (error) {
             console.dir(error);
-        } 
+        }
         if (result.length==0){
             app.locals.db.collection('selected_departures').insertOne(req.body, (error, result) => {
                 if (error) {
@@ -276,13 +290,13 @@ app.post("/selected_departures", (req, res) => {
                 }
                 res.json(result);
             });
-    
-           }
-           
-           
-        })  
 
-    
+           }
+
+
+        })
+
+
 });
 
 
@@ -376,7 +390,7 @@ app.post("/all_busstops_and_departures", (req, res) => {
             if (error) {
                 console.dir(error);
             }
-         
+
            if (result.length==0){
             app.locals.db.collection('all_busstops_and_departures').insertOne(req.body, (error, result) => {
                 if (error) {
@@ -386,12 +400,12 @@ app.post("/all_busstops_and_departures", (req, res) => {
             });
 
            }
-           
-        })  
-        
-      
-        
-   
+
+        })
+
+
+
+
 });
 
 

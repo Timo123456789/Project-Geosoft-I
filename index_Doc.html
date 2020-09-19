@@ -14,21 +14,16 @@
   <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
   <link rel="stylesheet" href="../leaflet/leaflet.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/src/public/style.css">
+  <link rel="stylesheet" href="src/public/style.css">
 </head>
 
 <body>
   <!-- navbar -->
   <nav class="navbar navbar-expand-md navbar-dark navbar-inverse">
-    <div class="navbar-header">
-      <!-- Brand -->
-      <a class="navbar-brand">Menu</a>
-      <!-- Toggler/collapsible Button -->
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar"
-        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </div>
+  <a class="navbar-brand">Menu</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
     <!-- Navbar links -->
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
@@ -70,6 +65,7 @@
       <br>
 
       <div class="col-sm-6" id="colum2">
+        <p id="What_does_the_page"> The following table shows all users who are registered as Traveller. </p>
 
         <p id="demo"></p>
 
@@ -124,8 +120,7 @@
         <br>
 
         <form id="radiobuttons_departures"> </form>
-        <button type="button" onclick="check_Departure_radios()" class="btn btn-default">add selected Departure as
-          taken</button>
+        <button type="button" onclick="check_Departure_radios()" class="btn btn-default">declare the used route from selected user as infected</button>
 
       </div>
     </div>
@@ -139,7 +134,7 @@
       <p>&copy; Timo Lietmeyer & Judith Bresser
         <span class="footer-separator">|</span> 2020
 
-        <br /> <br />
+        <br><br>
         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-envelope-fill" fill="currentColor"
           xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd"
@@ -153,7 +148,7 @@
         </svg> <!-- https://icons.getbootstrap.com/icons/envelope-fill/# -->
         Mailto: j_bres05@uni-muenster.de </p>
 
-      <script src="printing.js"></script>
+      <script src="src/printing.js"></script>
       <a href="javascript:druck();"> print <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-printer"
           fill="currentColor" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -173,10 +168,6 @@
       crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
       integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-      crossorigin="anonymous"></script>
-    <!-- This script is mandatory (Hamburger-Menu), do not delete-->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
       crossorigin="anonymous"></script>
 
     <script src="../jquery/jquery.min.js"> </script>
