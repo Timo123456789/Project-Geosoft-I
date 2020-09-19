@@ -262,15 +262,27 @@ app.get("/User", (req, res) => {
 *
 *
 */
-
-
 app.post("/selected_departures", (req, res) => {
-    app.locals.db.collection('selected_departures').insertOne(req.body, (error, result) => {
+   
+    app.locals.db.collection('selected_departures')
+    .find({ departure_id: req.body.departure_id, stop_id: req.body.stop_id, user: req.body.user }).toArray((error, result) => {
         if (error) {
             console.dir(error);
-        }
-        res.json(result);
-    });
+        } 
+        if (result.length==0){
+            app.locals.db.collection('selected_departures').insertOne(req.body, (error, result) => {
+                if (error) {
+                    console.dir(error);
+                }
+                res.json(result);
+            });
+    
+           }
+           
+           
+        })  
+
+    
 });
 
 

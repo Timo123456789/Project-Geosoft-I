@@ -212,7 +212,7 @@ function create_Collection_of_all_stops_and_departures(busstops) {
       lng: busstops.boards[i].place.location.lng,
       departures: busstops.boards[i].departures
     };
-console.log(result);
+
     $.ajax({
       url: "/all_busstops_and_departures",
       method: "POST",
