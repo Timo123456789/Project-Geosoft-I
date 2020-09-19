@@ -36,17 +36,3 @@ No other libraries and frameworks were used.
 # Readme notes during the discussion and documentation of the code
 -	Anschauen was ist mit der /getUser Function (index.js)
 -	App.get sollte eigentlich gelöscht werden (index.js)
-
-Noch einzufügen in die JavaScript Dateien!
-/
-* Musterlösung zu Aufgabe 4, Geosoft 1, SoSe 2020
-* @author {Name der studierenden Person}   matr.Nr.: {Matrikelnummer}
-*/
-
-//**various jshint configs**
-// jshint esversion: 8
-// jshint browser: true
-// jshint node: true
-// jshint -W117
-// jshint -W083
-"use strict";
