@@ -1,3 +1,17 @@
+/*
+* Projektaufgabe, Abgabeterim: 21.09.2020, Geosoft 1, SoSe 2020
+* @author {Timo Lietmeyer}   matr.Nr.: {Matrikelnummer}
+* @author {Judith Bresser}   matr.Nr.: {459956}
+*/
+
+//**various jshint configs**
+// jshint esversion: 8
+// jshint browser: true
+// jshint node: true
+// jshint -W117
+// jshint -W083
+"use strict";
+
 const express = require('express');
 const mongodb = require('mongodb');
 const port = 3000;
