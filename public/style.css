@@ -23,9 +23,7 @@ table, th, td {
   font-weight: bold;
   color:white;
 }
-button{
-  data-toggle="collapse" data-target="#demo";
-}
+
 .navbar {
   color: white;
   padding-top: 20px;
