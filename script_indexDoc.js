@@ -1,3 +1,16 @@
+/*
+* Projektaufgabe, Abgabeterim: 21.09.2020, Geosoft 1, SoSe 2020
+* @author {Timo Lietmeyer}   matr.Nr.: {459169}
+* @author {Judith Bresser}   matr.Nr.: {459956}
+*/
+
+//**various jshint configs**
+// jshint esversion: 8
+// jshint browser: true
+// jshint node: true
+// jshint -W117
+// jshint -W083
+"use strict";
 
 /**
 *@desc  creates Leafleat Map
@@ -17,7 +30,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 
-check_logged_User() //function to check if user is logged  
+check_logged_User() //function to check if user is logged
 main_indexDocSite() //run main method
 
 
@@ -180,7 +193,7 @@ async function create_table_with_taken_departures(Trav_ID) {
     line7.innerHTML = user_stop_data[0].departure_id; //insert cell at the row variable with the distance value on place i of array array_of_objects
     line7.setAttribute("class", "t1");
 
-   
+
 
 
 
@@ -321,10 +334,10 @@ function create_User_Table(only_user) {
 
     var line1 = row.insertCell()
     line1.innerHTML = only_user[i].Username;
-    line1.setAttribute("class", "t1"); 
+    line1.setAttribute("class", "t1");
 
     var line2 = row.insertCell();
-    line2.innerHTML = only_user[i].userID; 
+    line2.innerHTML = only_user[i].userID;
     line2.setAttribute("class", "t1");
 
 

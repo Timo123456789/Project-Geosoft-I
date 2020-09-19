@@ -1,3 +1,17 @@
+/*
+* Projektaufgabe, Abgabeterim: 21.09.2020, Geosoft 1, SoSe 2020
+* @author {Timo Lietmeyer}   matr.Nr.: {459169}
+* @author {Judith Bresser}   matr.Nr.: {459956}
+*/
+
+//**various jshint configs**
+// jshint esversion: 8
+// jshint browser: true
+// jshint node: true
+// jshint -W117
+// jshint -W083
+"use strict";
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -160,7 +174,7 @@ function get_one_stop_with_ID(idobject) {
 
 
 /**
-*@desc function to check if Collection "all_busstops_and_departures" is Empty 
+*@desc function to check if Collection "all_busstops_and_departures" is Empty
 */
 async function Coll_all_busstops_and_Departures_isEmpty() {
   //console.log("testhead")
@@ -206,7 +220,7 @@ function convert_time(time) {
   var str = time;
   var time_pos_begin = str.indexOf("T");
   var time_pos_end = str.lastIndexOf(":");
-  var time_short = str.slice(time_pos_begin + 1, time_pos_end - 3) 
+  var time_short = str.slice(time_pos_begin + 1, time_pos_end - 3)
   return time_short;
 }
 
@@ -266,4 +280,3 @@ var redIcon = new L.Icon({
   popupAnchor: [1, -34],
   shadowSize: [41, 41]
 });
-

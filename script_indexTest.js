@@ -1,3 +1,16 @@
+/*
+* Projektaufgabe, Abgabeterim: 21.09.2020, Geosoft 1, SoSe 2020
+* @author {Timo Lietmeyer}   matr.Nr.: {459169}
+* @author {Judith Bresser}   matr.Nr.: {459956}
+*/
+
+//**various jshint configs**
+// jshint esversion: 8
+// jshint browser: true
+// jshint node: true
+// jshint -W117
+// jshint -W083
+"use strict";
 
 /**
  *@desc 'QUnit test for API
@@ -17,10 +30,10 @@ QUnit.test("Check API Request",
  *
  */
 
-QUnit.test("Check API Request",async function (assert) { 
+QUnit.test("Check API Request",async function (assert) {
  var res = await connectAPI()
  console.log(res);
- if (res == 200){assert.ok(true)}else{assert.ok(false)} 
+ if (res == 200){assert.ok(true)}else{assert.ok(false)}
 }
 );
 
@@ -28,7 +41,7 @@ QUnit.test("check logged User",
     async function (assert) {
       var temp = await test_get_logged_User()
       console.log(temp);
-      if (temp == 200){assert.ok(true)}else{assert.ok(false)} 
+      if (temp == 200){assert.ok(true)}else{assert.ok(false)}
 
     },
 
@@ -41,8 +54,8 @@ QUnit.test("check logged User",
 
 
 
-async function connectAPI(){ 
- 
+async function connectAPI(){
+
 var t ;
 
 await $.ajax({
@@ -56,32 +69,32 @@ await $.ajax({
     console.log(xhr.getResponseHeader('X-CUSTOM-HEADER'));
     console.log(xhr.status);
     t = xhr.status
-  
-   
+
+
 });
 
 return t;
-  
+
 }
 
 
-async function test_get_logged_User(){ 
- 
+async function test_get_logged_User(){
+
   var t ;
-  
+
   await $.ajax({
-  
+
       url: "/logged_User",
       method: "GET",
-      
+
   }).done(  function(rs, textStatus, xhr) {
       console.log(xhr.getResponseHeader('X-CUSTOM-HEADER'));
       console.log(xhr.status);
       t = xhr.status
-    
-     
+
+
   });
-  
+
   return t;
-    
+
   }
