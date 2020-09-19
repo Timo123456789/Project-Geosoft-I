@@ -6,7 +6,7 @@ div.script {
   text-align: left;
 }
 th{
-  background-color: #32CD32;
+  background-color: forestgreen;
   color: white;
   max-width: 100%;
 }
@@ -23,8 +23,12 @@ table, th, td {
   font-weight: bold;
   color:white;
 }
-
 .navbar {
   color: white;
   padding-top: 20px;
+}
+#stayhealty{ /*used only in index_Login.html */
+  color: #2E8B57;
+  font-weight: bold;
+  font-family: arial, sans-serif;
 }

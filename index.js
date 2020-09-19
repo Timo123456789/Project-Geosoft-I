@@ -21,7 +21,7 @@ async function connectMongoDB() {
 
         app.locals.db.collection("User").drop((err, delOK) => { if (delOK) console.log("collection User cleared") });
         app.locals.db.collection("all_busstops_and_departures").drop((err, delOK) => { if (delOK) console.log("collection all_busstops_and_departures cleared") });
-        // app.locals.db.collection("logged_User").drop((err, delOK) => { if (delOK) console.log("collection logged_User cleared") });
+        app.locals.db.collection("logged_User").drop((err, delOK) => { if (delOK) console.log("collection logged_User cleared") });
         app.locals.db.collection("selected_departures").drop((err, delOK) => { if (delOK) console.log("collection selected departures cleared") });
 
     }
@@ -263,12 +263,12 @@ app.get("/User", (req, res) => {
 *
 */
 app.post("/selected_departures", (req, res) => {
-   
+
     app.locals.db.collection('selected_departures')
     .find({ departure_id: req.body.departure_id, stop_id: req.body.stop_id, user: req.body.user }).toArray((error, result) => {
         if (error) {
             console.dir(error);
-        } 
+        }
         if (result.length==0){
             app.locals.db.collection('selected_departures').insertOne(req.body, (error, result) => {
                 if (error) {
@@ -276,13 +276,13 @@ app.post("/selected_departures", (req, res) => {
                 }
                 res.json(result);
             });
-    
-           }
-           
-           
-        })  
 
-    
+           }
+
+
+        })
+
+
 });
 
 
@@ -376,7 +376,7 @@ app.post("/all_busstops_and_departures", (req, res) => {
             if (error) {
                 console.dir(error);
             }
-         
+
            if (result.length==0){
             app.locals.db.collection('all_busstops_and_departures').insertOne(req.body, (error, result) => {
                 if (error) {
@@ -386,12 +386,12 @@ app.post("/all_busstops_and_departures", (req, res) => {
             });
 
            }
-           
-        })  
-        
-      
-        
-   
+
+        })
+
+
+
+
 });
 
 
