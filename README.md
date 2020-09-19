@@ -7,7 +7,7 @@ Create a token and add this API KEY to the tokenfile.
 - Without docker the web-app starts via `$ npm install && npm start`. This includes the installation of all dependencies with package.json.
 - The tests start with `$ npm test`, or are accessible via the path `/test` in the browser.
 
-# Autorennamen: 
+# Author names: 
 Timo Lietmeyer & Judith Bresser
 
 # Github-link: 
