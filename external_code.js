@@ -13,9 +13,9 @@
 "use strict";
 
 /** @description The Window.print() method starts the printing process
- *               identical to the menu command for printing in the browser
- *
- */
+*               identical to the menu command for printing in the browser
+*
+*/
 
 /* https://wiki.selfhtml.org/wiki/JavaScript/Window/print */
 function druck() {
@@ -23,16 +23,16 @@ function druck() {
 }
 
 /** @description The Window.print() method starts the printing process
- *               identical to the menu command for printing in the browser
- *
- */
+*               identical to the menu command for printing in the browser
+*
+*/
 
- /**
- *@desc convert point in GJSON Feature
- *@param  i = temporary variable
- *@param x = Feature Collection of GeoJSON
- *
- */
+/**
+*@desc convert point in GJSON Feature
+*@param  i = temporary variable
+*@param x = Feature Collection of GeoJSON
+*
+*/
 
 /* https://www.w3schools.com/w3css/w3css_tabulators.asp */
 

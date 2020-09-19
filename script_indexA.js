@@ -120,7 +120,7 @@ function convert_point_to_GJSON(point) {
 */
 function screen_User_Position(actpos) {
   L.marker((convert_GJSON_to_Array(actpos, 0)),/*{icon: bicon}*/).addTo(map) // [51.5, -0.09] change(convert_GJSON_to_Array(busstops,i))
-    .bindPopup("Selected Point")
+  .bindPopup("Selected Point")
 }
 
 
@@ -191,12 +191,12 @@ async function create_Table_Busstops(busstops) {
     array_with_calculated_distances.setAttribute("class", "t1");
 
     L.marker([busstops.boards[i].place.location.lat, busstops.boards[i].place.location.lng]).addTo(map)
-      .bindPopup(busstops.boards[i].place.name + "<br>" + "ID: " + busstops.boards[i].place.id); //set Marker for Bus stop with Busstop ID and Busstop Name
+    .bindPopup(busstops.boards[i].place.name + "<br>" + "ID: " + busstops.boards[i].place.id); //set Marker for Bus stop with Busstop ID and Busstop Name
   }
 
 
 
-    create_Collection_of_all_stops_and_departures(busstops) //Function to create Collection with busstop data
+  create_Collection_of_all_stops_and_departures(busstops) //Function to create Collection with busstop data
 
 
   create_list_of_ratio_buttons(busstops); //create List of ratio buttons from busstop data
@@ -320,9 +320,9 @@ function create_list_of_ratio_buttons_departures(departures, stop_id) {
 
 
 /**
-  *@desc Async Function to get the value of the checked radio buttons on the site, give this data to create_table_departures Function
-  *@param rbs = node list with all values from radio button list
-  */
+*@desc Async Function to get the value of the checked radio buttons on the site, give this data to create_table_departures Function
+*@param rbs = node list with all values from radio button list
+*/
 async function check_stop_radios() {
   const rbs = document.querySelectorAll('input[name="value"]');
   let selectedValue;
@@ -344,11 +344,11 @@ async function check_stop_radios() {
 }
 
 /**
-  *@desc Async Function to get the value of the checked radio buttons on the site, give this data to add_selected_stop_as_taken Function
-  *@param rbs = node list with all values from radio button list
-  *@param selected_Departure_ID = selected Departure ID
-  *@param selected_stop_ID = selected Stop ID
-  */
+*@desc Async Function to get the value of the checked radio buttons on the site, give this data to add_selected_stop_as_taken Function
+*@param rbs = node list with all values from radio button list
+*@param selected_Departure_ID = selected Departure ID
+*@param selected_stop_ID = selected Stop ID
+*/
 async function check_departure_radios() {
   const rbs = document.querySelectorAll('input[name="value_departures"]');
   // console.log(rbs);
@@ -367,10 +367,10 @@ async function check_departure_radios() {
 }
 
 /**
-  *@desc creates an Object with Departure ID, Stop ID, User ID and Infection risk and push it into Collection "selected_Departures"
-  *@param dep_id = departure ID
-  *@param stop_id = Stop ID
-  */
+*@desc creates an Object with Departure ID, Stop ID, User ID and Infection risk and push it into Collection "selected_Departures"
+*@param dep_id = departure ID
+*@param stop_id = Stop ID
+*/
 async function add_selected_stop_as_taken(dep_id, stop_id) {
 
   var user = await get_logged_User()
