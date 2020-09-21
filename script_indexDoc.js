@@ -73,6 +73,7 @@ function create_User_Ratios(data) {
   document.getElementById("radiobuttons_User").innerHTML = "";
   var list = document.getElementById("radiobuttons_User");
   for (var i = 0; i < data.length; i++) {
+    var br = document.createElement("br");
     var x = document.createElement("INPUT");
     var y = document.createElement("LABEL");
     y.innerHTML = data[i].Username + "(ID: " + data[i].userID + ")\n";
@@ -88,6 +89,7 @@ function create_User_Ratios(data) {
       "value",
       data[i].userID
     );
+    list.appendChild(br);
     list.appendChild(x);
     list.appendChild(y);
   }
@@ -214,6 +216,7 @@ function create_Departure_Ratios(checkbox, user_stop_data, Trav_Id) {
   document.getElementById("radiobuttons_departures").innerHTML = "";
   var list = document.getElementById("radiobuttons_departures");
   for (var i = 0; i < checkbox.length; i++) {
+    var br = document.createElement("br");
     var x = document.createElement("INPUT");
     var y = document.createElement("LABEL");
     y.innerHTML = checkbox[i] + 1;
@@ -240,6 +243,7 @@ function create_Departure_Ratios(checkbox, user_stop_data, Trav_Id) {
       "value",
       JSON_row_data
     );
+    list.appendChild(br);
     list.appendChild(x);
     list.appendChild(y);
   }

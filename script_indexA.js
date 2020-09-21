@@ -47,7 +47,7 @@ main_indexA() //function to run main Method
 */
 async function main_indexA(actpos) {
   L.marker(change(actpos)).addTo(map).bindPopup("User Position")
-  getbusstops(actpos);
+ getbusstops(actpos); 
 
 }
 
@@ -215,8 +215,13 @@ async function create_Table_Busstops(busstops) {
 *
 */
 function create_Collection_of_all_stops_and_departures(busstops) {
+  console.log("stops")
+  console.log(busstops)
+  console.log(busstops.boards[0].departures)
   for (var i = 0; i < busstops.boards.length; i++) {
-    result = {
+    console.log("busstops.boards["+i+"].departures");
+    console.log(busstops.boards[i].departures);
+    var result = {
       name: busstops.boards[i].place.name,
       type: busstops.boards[i].place.type,
       id: busstops.boards[i].place.id,
@@ -250,7 +255,7 @@ function create_list_of_ratio_buttons(busstops) {
   document.getElementById("radiobuttons_stops").innerHTML = "";
   var list = document.getElementById("radiobuttons_stops");
   for (var i = 0; i < busstops.boards.length; i++) {
-
+    var br = document.createElement("br");
     var x = document.createElement("INPUT");
     var y = document.createElement("LABEL");
     y.innerHTML = busstops.boards[i].place.name + "(ID: " + busstops.boards[i].place.id + ")";
@@ -266,6 +271,8 @@ function create_list_of_ratio_buttons(busstops) {
       "value",
       busstops.boards[i].place.id
     );
+    
+    list.appendChild(br);
     list.appendChild(x);
     list.appendChild(y);
   }
@@ -289,6 +296,7 @@ function create_list_of_ratio_buttons_departures(departures, stop_id) {
 
   var list = document.getElementById("radiobuttons_departures");
   for (var i = 0; i < departures.length; i++) {
+    var br = document.createElement("br");
     var x = document.createElement("INPUT");
     var y = document.createElement("LABEL");
     y.innerHTML = departures[i].transport.headsign + "(ID: " + "Dep" + i + ")";
@@ -311,6 +319,7 @@ function create_list_of_ratio_buttons_departures(departures, stop_id) {
       "stop_id",
       stop_id
     );
+    list.appendChild(br);
     list.appendChild(x);
     list.appendChild(y);
 
