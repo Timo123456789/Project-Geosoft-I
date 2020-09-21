@@ -67,6 +67,10 @@ async function (assert) {
 
 
 
+/**
+*@desc temp function for test.html
+*
+*/
 
 
 async function connectAPI(){
@@ -92,7 +96,10 @@ async function connectAPI(){
 
 }
 
-
+/**
+*@desc temp function for test.html
+*
+*/
 async function test_get_logged_User(){
 
   var t ;
@@ -115,7 +122,10 @@ async function test_get_logged_User(){
 }
 
 
-
+/**
+*@desc temp function for test.html
+*
+*/
 async function test_get_User(){
 
     var t ;
