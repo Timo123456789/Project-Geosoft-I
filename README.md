@@ -33,6 +33,3 @@ No other libraries and frameworks were used.
 - The user profiles are password protected
 - At the end of the footer, the user has the possibility to use the offered print function on every HTML page without much effort.
 
-# Readme notes during the discussion and documentation of the code
--	Anschauen was ist mit der /getUser Function (index.js)
--	App.get sollte eigentlich gelöscht werden (index.js)

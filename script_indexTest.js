@@ -12,16 +12,6 @@
 // jshint -W083
 "use strict";
 
-/**
-*@desc 'QUnit test for API
-*
-
-
-QUnit.test("Check API Request",
-function (assert) {
-  assert.ok(true)
-},
-); */
 
 
 
@@ -37,6 +27,13 @@ QUnit.test("Check API Request",async function (assert) {
 }
 );
 
+
+
+/**
+*@desc QUnit test for check logged User Function
+*
+*/
+
 QUnit.test("check logged User",
 async function (assert) {
   var temp = await test_get_logged_User()
@@ -48,6 +45,24 @@ async function (assert) {
 
 );
 
+
+
+
+/**
+*@desc QUnit test for get all User Data Function
+*
+*/
+
+QUnit.test("get all User Function",
+async function (assert) {
+  var temp = await test_get_User()
+  console.log(temp);
+  if (temp == 200){assert.ok(true)}else{assert.ok(false)}
+
+},
+
+
+);
 
 
 
@@ -98,3 +113,27 @@ async function test_get_logged_User(){
   return t;
 
 }
+
+
+
+async function test_get_User(){
+
+    var t ;
+  
+    await $.ajax({
+  
+      url: "/User",
+      method: "GET",
+  
+    }).done(  function(rs, textStatus, xhr) {
+      console.log(xhr.getResponseHeader('X-CUSTOM-HEADER'));
+      console.log(xhr.status);
+      t = xhr.status
+  
+  
+    });
+  
+    return t;
+  
+  }
+  
