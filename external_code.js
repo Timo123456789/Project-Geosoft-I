@@ -22,13 +22,9 @@ function druck() {
   window.print();
 }
 
-/** @description The Window.print() method starts the printing process
-*               identical to the menu command for printing in the browser
-*
-*/
 
 /**
-*@desc convert point in GJSON Feature
+*@desc screen various text fields
 *@param  i = temporary variable
 *@param x = Feature Collection of GeoJSON
 *

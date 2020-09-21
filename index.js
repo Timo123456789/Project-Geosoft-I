@@ -27,8 +27,16 @@ app.use(express.urlencoded({ extended: true }));
 */
 async function connectMongoDB() {
   try {
-    //connect to database server
-    app.locals.dbConnection = await mongodb.MongoClient.connect("mongodb://localhost:27017", { useNewUrlParser: true });
+    //Connect to database server
+    try
+    {
+        app.locals.dbConnection = await mongodb.MongoClient.connect("mongodb://localhost:27017", {useNewUrlParser: true});
+    }
+    catch(error)
+    {
+        app.locals.dbConnection = await mongodb.MongoClient.connect("mongodb://mongodbservice:27017", {useNewUrlParser: true});
+    }
+    
     //connect do database "MainDB"
     app.locals.db = await app.locals.dbConnection.db("MainDB");
     console.log("Using db: " + app.locals.db.databaseName);
@@ -171,7 +179,7 @@ app.listen(port,
     if (req.query.Username != undefined && req.query.Password != undefined) {
 
       app.locals.db.collection('User').find({Username:req.query.Username, Password:req.query.Password}).toArray((error, result) => {
-        console.log("gefunden");
+      //  console.log("gefunden");
         if (error) {
           console.dir(error);
         }
@@ -385,14 +393,16 @@ app.listen(port,
   */
 
   app.post("/all_busstops_and_departures", (req, res) => {
-
+console.log("POST");
     app.locals.db.collection('all_busstops_and_departures')
-    .find({ name: req.body.name, id: req.body.id, departures: req.body.departures }).toArray((error, result) => {
+    .find({name: req.body.name, id: req.body.id, departures: req.body.departures}).toArray((error, result) => {
+      
       if (error) {
         console.dir(error);
       }
 
       if (result.length==0){
+        console.log("haltestelle nicht gefunden");
         app.locals.db.collection('all_busstops_and_departures').insertOne(req.body, (error, result) => {
           if (error) {
             console.dir(error);
@@ -400,7 +410,7 @@ app.listen(port,
           res.json(result);
         });
 
-      }
+      } else {console.log("haltestelle gefunden");}
 
     })
 
